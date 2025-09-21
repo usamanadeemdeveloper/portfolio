@@ -28,11 +28,11 @@ function ProjectCard({
         viewport={{ once: true }}
       >
         <Image
-          src={imageUrl}
+          className="object-contain"
           alt={`${title} screenshot`}
-          width={300}
+          src={imageUrl}
           height={300}
-          className="max-h-40 md:max-h-60 object-contain"
+          width={300}
         />
       </motion.div>
 

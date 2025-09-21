@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-const MotionImage = motion(Image);
+const MotionImage = motion.create(Image);
 
 function ExperienceCard() {
   return (
@@ -42,12 +42,14 @@ function ExperienceCard() {
         {/* Tech Stack */}
         <div className="flex justify-center space-x-2 my-4">
           <Image
-            src="/tech1.png"
-            alt="Tech Used"
-            width={36}
-            height={36}
+            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
             className="rounded-full sm:w-10 sm:h-10 border border-[#3B82F6]/30 shadow-sm"
+            alt="JavaScript"
+            unoptimized
+            height={36}
+            width={36}
           />
+
           {/* Add more tech icons */}
         </div>
 
@@ -64,9 +66,8 @@ function ExperienceCard() {
               core platform features.
             </li>
             <li>
-              Optimized{" "}
-              <span className="text-[#3B82F6]">database queries</span> improving
-              performance by 40%.
+              Optimized <span className="text-[#3B82F6]">database queries</span>{" "}
+              improving performance by 40%.
             </li>
             <li>
               Mentored juniors on{" "}

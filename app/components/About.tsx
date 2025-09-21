@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-const MotionImage = motion(Image);
+const MotionImage = motion.create(Image);
 
 function About() {
   return (
@@ -23,14 +23,15 @@ function About() {
         {/* Profile Image */}
         <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-80 md:h-96 xl:w-[370px] xl:h-[470px] mb-8 md:mb-0 flex-shrink-0">
           <MotionImage
-            initial={{ x: -200, opacity: 0, scale: 0.9 }}
-            transition={{ duration: 1.2 }}
-            whileInView={{ x: 0, opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
             src="https://media.licdn.com/dms/image/v2/D4D03AQHy_BcVKIVn7A/profile-displayphoto-scale_400_400/B4DZkkTBDzGkAg-/0/1757250590476?e=1761177600&v=beta&t=XTCOlb7X4pEnGKJm6SqfsqifnM5cYR2UEX5utl0TJnI"
-            alt="Profile picture of Usama Nadeem"
-            fill
             className="rounded-full md:rounded-lg object-cover shadow-xl shadow-black/50 border-2 border-[#3B82F6]/40"
+            initial={{ x: -200, opacity: 0, scale: 0.9 }}
+            whileInView={{ x: 0, opacity: 1, scale: 1 }}
+            sizes="(max-width: 768px) 100vw, 200px"
+            alt="Profile picture of Usama Nadeem"
+            transition={{ duration: 1.2 }}
+            viewport={{ once: true }}
+            fill
           />
         </div>
 

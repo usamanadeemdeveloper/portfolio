@@ -10,17 +10,17 @@ const projects = [
     title: "UPS Clone",
     description:
       "A logistics tracking dashboard built with Next.js + Tailwind.",
-    imageUrl: "https://via.placeholder.com/300",
+    imageUrl: "https://picsum.photos/300",
   },
   {
     title: "Netflix Clone",
     description: "Streaming UI clone with Firebase authentication.",
-    imageUrl: "https://via.placeholder.com/300",
+    imageUrl: "https://picsum.photos/300",
   },
   {
     title: "E-Commerce Store",
     description: "Full-stack MERN shop with Stripe checkout.",
-    imageUrl: "https://via.placeholder.com/300",
+    imageUrl: "https://picsum.photos/300",
   },
 ];
 

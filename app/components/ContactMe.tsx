@@ -57,29 +57,33 @@ function ContactMe() {
         >
           <div className="flex flex-col md:flex-row md:space-x-2 space-y-3 md:space-y-0">
             <input
-              {...register("name")}
-              type="text"
-              placeholder="Name"
               className="contactInput flex-1"
+              {...register("name")}
+              autoComplete="name"
+              placeholder="Name"
+              type="text"
             />
             <input
-              {...register("email")}
-              type="email"
-              placeholder="Email"
               className="contactInput flex-1"
+              {...register("email")}
+              autoComplete="email"
+              placeholder="Email"
+              type="email"
             />
           </div>
           <input
-            {...register("subject")}
-            type="text"
-            placeholder="Subject"
             className="contactInput"
+            {...register("subject")}
+            placeholder="Subject"
+            autoComplete="off"
+            type="text"
           />
           <textarea
+            className="contactInput"
             {...register("message")}
             placeholder="Message"
+            autoComplete="off"
             rows={4}
-            className="contactInput"
           />
           <button
             type="submit"

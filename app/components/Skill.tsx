@@ -15,10 +15,11 @@ function Skill({ directionLeft }: { directionLeft?: boolean }) {
       {/* Icon container */}
       <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 xl:w-28 xl:h-28">
         <Image
+          className="rounded-full border border-gray-500 object-cover transition duration-300 ease-in-out group-hover:grayscale z-0"
           src="https://avatars.githubusercontent.com/u/15021394?v=4"
+          sizes="(max-width: 768px) 100vw, 200px"
           alt="Skill"
           fill
-          className="rounded-full border border-gray-500 object-cover transition duration-300 ease-in-out group-hover:grayscale z-0"
         />
 
         {/* Hover overlay */}

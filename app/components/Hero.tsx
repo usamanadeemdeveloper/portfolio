@@ -23,11 +23,12 @@ function Hero() {
       <BackgroudCircles />
 
       <Image
+        className="relative rounded-full mx-auto object-cover border-4 border-primary"
         src="/profile-img.jpeg"
         alt="Profile image"
-        width={128}
         height={128}
-        className="relative rounded-full mx-auto object-cover border-4 border-primary"
+        width={128}
+        priority
       />
 
       <div className="z-20">
