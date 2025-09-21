@@ -61,7 +61,6 @@ function Projects({ projects }: ProjectsProps) {
         Projects
       </h3>
 
-      {/* Scroll container */}
       <div
         ref={scrollRef}
         className="relative w-full flex overflow-x-scroll snap-x snap-mandatory scroll-smooth z-10 scrollbar-thin scrollbar-track-gray-700/20 scrollbar-thumb-blue-500/80"
@@ -76,7 +75,6 @@ function Projects({ projects }: ProjectsProps) {
         ))}
       </div>
 
-      {/* Navigation arrows */}
       <ProjectNav
         onPrev={() =>
           scrollToProject(

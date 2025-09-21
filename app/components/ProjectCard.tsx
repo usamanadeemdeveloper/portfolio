@@ -14,7 +14,6 @@ type ProjectCardProps = {
 function ProjectCard({ project, index, total }: ProjectCardProps) {
   return (
     <div className="w-screen flex-shrink-0 snap-center flex flex-col space-y-5 items-center justify-center p-10 md:p-20 lg:p-32 h-screen">
-      {/* Image */}
       <motion.div
         initial={{ y: -200, opacity: 0 }}
         transition={{ duration: 1.2 }}
@@ -39,7 +38,9 @@ function ProjectCard({ project, index, total }: ProjectCardProps) {
           </span>
           {project.title}
         </h4>
-        <p className="text-base md:text-lg text-gray-400">{project.summary}</p>
+        <p className="text-base md:text-lg text-gray-400 whitespace-pre-line break-words">
+          {project.summary}
+        </p>
 
         <div className="flex justify-center flex-wrap gap-3 mt-4">
           {project.technologies?.filter(Boolean).map((tech) => (
@@ -56,14 +57,13 @@ function ProjectCard({ project, index, total }: ProjectCardProps) {
                   className="mr-2 rounded-full"
                 />
               )}
-              {/* <span className="text-xs sm:text-sm text-gray-200">
+              <span className="text-xs sm:text-sm text-gray-200">
                 {tech.title}
-              </span> */}
+              </span>
             </div>
           ))}
         </div>
 
-        {/* Link to Build */}
         {project.linkToBuild && (
           <div className="mt-6">
             <a

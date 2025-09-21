@@ -14,7 +14,6 @@ type ExperienceCardProps = {
 function ExperienceCard({ experience }: ExperienceCardProps) {
   return (
     <article className="flex flex-col items-center rounded-lg bg-[rgb(28,28,28)] p-6 sm:p-8 md:p-10 hover:opacity-100 opacity-50 cursor-pointer transition-opacity duration-300 overflow-hidden flex-shrink-0 w-full md:w-[50%] lg:w-[47%] h-[550px] sm:h-[600px] md:h-[650px] snap-center shadow-lg shadow-black/40 border border-[#3B82F6]/20">
-      {/* Company Logo */}
       {experience.companyImage && (
         <MotionImage
           initial={{ y: -50, opacity: 0 }}
@@ -29,9 +28,8 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
         />
       )}
 
-      {/* Text Content */}
-      <div className="flex flex-col w-full mt-6 px-2 sm:px-6 md:px-10 h-full">
-        <div className="text-center">
+      <div className="flex flex-col w-full mt-6 px-2 sm:px-6 md:px-10 flex-1 min-h-0">
+        <div className="text-center flex-shrink-0">
           <h4 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-gray-100">
             {experience.jobTitle}
           </h4>
@@ -40,8 +38,7 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
           </p>
         </div>
 
-        {/* Tech Stack */}
-        <div className="flex justify-start space-x-2 my-4 overflow-x-auto max-w-full">
+        <div className="flex justify-start space-x-2 my-4 overflow-x-auto max-w-full flex-shrink-0">
           {experience.technologies?.map(
             (tech) =>
               tech.image && (
@@ -57,8 +54,7 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
           )}
         </div>
 
-        {/* Duration + Summary */}
-        <div className="flex-1 overflow-y-auto text-left mt-4 scrollbar-thin scrollbar-thumb-[#3B82F6] scrollbar-track-gray-800 scrollbar-thumb-rounded scrollbar-track-rounded">
+        <div className="flex-1 min-h-0 overflow-y-auto text-left mt-4 scrollbar-thin scrollbar-thumb-[#3B82F6] scrollbar-track-gray-800 scrollbar-thumb-rounded scrollbar-track-rounded">
           <p className="uppercase py-2 text-gray-400 text-xs sm:text-sm md:text-base tracking-wide">
             {new Date(experience.dateStarted ?? "").toDateString()} -{" "}
             {experience.isCurrentlyWorkingHere

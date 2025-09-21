@@ -19,14 +19,11 @@ function About({ pageInfo }: AboutProps) {
       transition={{ duration: 1.5 }}
       className="relative min-h-screen max-w-7xl px-6 md:px-10 mx-auto flex flex-col text-center rounded-2xl shadow-lg shadow-black/40"
     >
-      {/* Heading */}
       <h3 className="mt-20 mb-16 uppercase tracking-[12px] text-gray-400 text-lg md:text-2xl">
         <span className="text-[#3B82F6]">About</span>
       </h3>
 
-      {/* Image + Text */}
       <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:text-left">
-        {/* Profile Image */}
         {pageInfo?.profilePic && (
           <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-80 md:h-96 xl:w-[370px] xl:h-[470px] mb-8 md:mb-0 flex-shrink-0">
             <MotionImage
@@ -43,7 +40,6 @@ function About({ pageInfo }: AboutProps) {
           </div>
         )}
 
-        {/* Text Section */}
         <div className="space-y-6 md:space-y-10 px-2 md:px-10">
           <h4 className="text-2xl md:text-3xl font-semibold text-gray-200">
             Here is a{" "}

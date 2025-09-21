@@ -18,13 +18,11 @@ function ContactMe() {
 
   return (
     <div className="h-screen relative flex flex-col text-center md:text-left md:flex-row max-w-7xl px-6 md:px-10 justify-evenly mx-auto items-center">
-      {/* Section Heading */}
       <h3 className="absolute top-24 uppercase tracking-[20px] text-gray-400 text-2xl">
         Contact
       </h3>
 
       <div className="flex flex-col space-y-10 w-full max-w-2xl">
-        {/* Subtitle */}
         <h4 className="text-2xl md:text-4xl font-semibold text-center text-white mb-2">
           I have got just what you need.{" "}
           <span className="underline block decoration-blue-500/50 my-2">
@@ -32,7 +30,6 @@ function ContactMe() {
           </span>
         </h4>
 
-        {/* Contact Info */}
         <div className="space-y-6 md:space-y-10 text-gray-300">
           <div className="flex items-center space-x-5 justify-center">
             <EnvelopeIcon
@@ -59,7 +56,6 @@ function ContactMe() {
           </div>
         </div>
 
-        {/* Contact Form */}
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col space-y-3 w-full max-w-lg mx-auto"

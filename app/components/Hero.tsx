@@ -45,12 +45,10 @@ function Hero({ pageInfo }: HeroProps) {
       )}
 
       <div className="z-20">
-        {/* Subheading */}
         <h1 className="text-sm uppercase text-secondary pb-2 tracking-[15px]">
           {pageInfo?.role}
         </h1>
 
-        {/* Typewriter headline */}
         <h2 className="text-lg sm:text-2xl md:text-4xl lg:text-5xl font-semibold px-4 sm:px-6 md:px-10">
           <span className="mr-3 inline-flex items-center">
             {text}
@@ -58,7 +56,6 @@ function Hero({ pageInfo }: HeroProps) {
           </span>
         </h2>
 
-        {/* Nav buttons */}
         <div className="pt-5 space-x-3">
           <Link href="#about">
             <button className="heroButton">About</button>

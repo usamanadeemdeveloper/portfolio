@@ -19,7 +19,6 @@ function Skill({ skill, directionLeft }: SkillProps) {
       viewport={{ once: true }}
       className="group relative flex cursor-pointer"
     >
-      {/* Icon container */}
       <div className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 xl:w-28 xl:h-28">
         {skill.image && (
           <Image
@@ -31,7 +30,6 @@ function Skill({ skill, directionLeft }: SkillProps) {
           />
         )}
 
-        {/* Hover overlay */}
         <div className="absolute inset-0 flex items-center justify-center rounded-full opacity-0 transition duration-300 ease-in-out group-hover:opacity-90 group-hover:bg-white z-10">
           <p className="text-xs sm:text-sm md:text-lg font-bold text-black">
             {skill.progress}%
