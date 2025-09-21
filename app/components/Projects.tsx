@@ -4,27 +4,13 @@ import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import ProjectCard from "./ProjectCard";
 import ProjectNav from "./ProjectNav";
+import { PROJECTS_QUERYResult } from "@/sanity.types";
 
-const projects = [
-  {
-    title: "UPS Clone",
-    description:
-      "A logistics tracking dashboard built with Next.js + Tailwind.",
-    imageUrl: "https://picsum.photos/300",
-  },
-  {
-    title: "Netflix Clone",
-    description: "Streaming UI clone with Firebase authentication.",
-    imageUrl: "https://picsum.photos/300",
-  },
-  {
-    title: "E-Commerce Store",
-    description: "Full-stack MERN shop with Stripe checkout.",
-    imageUrl: "https://picsum.photos/300",
-  },
-];
+type ProjectsProps = {
+  projects: PROJECTS_QUERYResult;
+};
 
-function Projects() {
+function Projects({ projects }: ProjectsProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -48,7 +34,7 @@ function Projects() {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [projects.length]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -62,7 +48,7 @@ function Projects() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [currentIndex]);
+  }, [currentIndex, projects.length]);
 
   return (
     <motion.div
@@ -81,7 +67,12 @@ function Projects() {
         className="relative w-full flex overflow-x-scroll snap-x snap-mandatory scroll-smooth z-10 scrollbar-thin scrollbar-track-gray-700/20 scrollbar-thumb-blue-500/80"
       >
         {projects.map((project, i) => (
-          <ProjectCard key={i} index={i} total={projects.length} {...project} />
+          <ProjectCard
+            index={i}
+            project={project}
+            key={project._id}
+            total={projects.length}
+          />
         ))}
       </div>
 
