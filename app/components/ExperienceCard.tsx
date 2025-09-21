@@ -1,9 +1,11 @@
 "use client";
 
+import { useState, useRef, useEffect } from "react";
 import { EXPERIENCE_QUERYResult } from "@/sanity.types";
 import { urlFor } from "@/sanity/lib/image";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { ArrowDownIcon } from "@sanity/icons";
 
 const MotionImage = motion.create(Image);
 
@@ -12,6 +14,27 @@ type ExperienceCardProps = {
 };
 
 function ExperienceCard({ experience }: ExperienceCardProps) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [showHint, setShowHint] = useState(true);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const handleScroll = () => {
+      if (el.scrollTop > 10) {
+        setShowHint(false);
+      } else {
+        setShowHint(true);
+      }
+    };
+
+    handleScroll();
+
+    el.addEventListener("scroll", handleScroll);
+    return () => el.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <article className="flex flex-col items-center rounded-lg bg-[rgb(28,28,28)] p-6 sm:p-8 md:p-10 hover:opacity-100 opacity-50 cursor-pointer transition-opacity duration-300 overflow-hidden flex-shrink-0 w-full md:w-[50%] lg:w-[47%] h-[550px] sm:h-[600px] md:h-[650px] snap-center shadow-lg shadow-black/40 border border-[#3B82F6]/20">
       {experience.companyImage && (
@@ -54,7 +77,11 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
           )}
         </div>
 
-        <div className="flex-1 min-h-0 overflow-y-auto text-left mt-4 scrollbar-thin scrollbar-thumb-[#3B82F6] scrollbar-track-gray-800 scrollbar-thumb-rounded scrollbar-track-rounded">
+        {/* Scrollable content */}
+        <div
+          ref={scrollRef}
+          className="relative flex-1 min-h-0 overflow-y-auto text-left mt-4 scrollbar-thin scrollbar-thumb-[#3B82F6] scrollbar-track-gray-800 scrollbar-thumb-rounded scrollbar-track-rounded"
+        >
           <p className="uppercase py-2 text-gray-400 text-xs sm:text-sm md:text-base tracking-wide">
             {new Date(experience.dateStarted ?? "").toDateString()} -{" "}
             {experience.isCurrentlyWorkingHere
@@ -67,6 +94,20 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
               <li key={i}>{point}</li>
             ))}
           </ul>
+
+          {/* Scroll hint arrow + tooltip */}
+          {showHint && (
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 animate-bounce group">
+              <ArrowDownIcon className="w-12 h-12 rounded-full bg-gray-800 text-[#3B82F6] p-3 cursor-pointer hover:bg-gray-700 transition" />
+              {/* Tooltip */}
+              <span
+                className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 rounded-md text-xs text-white bg-gray-900 
+                 opacity-0 group-hover:opacity-100 transition whitespace-nowrap"
+              >
+                Scroll to see more
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </article>
