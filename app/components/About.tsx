@@ -1,10 +1,16 @@
 "use client";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { GetPageInfoResult } from "@/sanity.types";
+import { urlFor } from "@/sanity/lib/image";
 
 const MotionImage = motion.create(Image);
 
-function About() {
+type AboutProps = {
+  pageInfo: GetPageInfoResult;
+};
+
+function About({ pageInfo }: AboutProps) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -21,19 +27,21 @@ function About() {
       {/* Image + Text */}
       <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:text-left">
         {/* Profile Image */}
-        <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-80 md:h-96 xl:w-[370px] xl:h-[470px] mb-8 md:mb-0 flex-shrink-0">
-          <MotionImage
-            src="https://media.licdn.com/dms/image/v2/D4D03AQHy_BcVKIVn7A/profile-displayphoto-scale_400_400/B4DZkkTBDzGkAg-/0/1757250590476?e=1761177600&v=beta&t=XTCOlb7X4pEnGKJm6SqfsqifnM5cYR2UEX5utl0TJnI"
-            className="rounded-full md:rounded-lg object-cover shadow-xl shadow-black/50 border-2 border-[#3B82F6]/40"
-            initial={{ x: -200, opacity: 0, scale: 0.9 }}
-            whileInView={{ x: 0, opacity: 1, scale: 1 }}
-            sizes="(max-width: 768px) 100vw, 200px"
-            alt="Profile picture of Usama Nadeem"
-            transition={{ duration: 1.2 }}
-            viewport={{ once: true }}
-            fill
-          />
-        </div>
+        {pageInfo?.profilePic && (
+          <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-80 md:h-96 xl:w-[370px] xl:h-[470px] mb-8 md:mb-0 flex-shrink-0">
+            <MotionImage
+              src={urlFor(pageInfo.profilePic).url()}
+              className="rounded-full md:rounded-lg object-cover shadow-xl shadow-black/50 border-2 border-[#3B82F6]/40"
+              initial={{ x: -200, opacity: 0, scale: 0.9 }}
+              whileInView={{ x: 0, opacity: 1, scale: 1 }}
+              sizes="(max-width: 768px) 100vw, 200px"
+              alt="Profile picture of Usama Nadeem"
+              transition={{ duration: 1.2 }}
+              viewport={{ once: true }}
+              fill
+            />
+          </div>
+        )}
 
         {/* Text Section */}
         <div className="space-y-6 md:space-y-10 px-2 md:px-10">
@@ -43,17 +51,7 @@ function About() {
             background
           </h4>
           <p className="text-sm lg:text-base leading-relaxed break-words text-gray-300 text-left md:text-justify">
-            I&apos;m a software engineer who thrives on turning complex
-            requirements into well-architected, performant systems. My focus is
-            on building scalable full-stack applications with modern tools like{" "}
-            <span className="text-[#3B82F6]">TypeScript</span>,{" "}
-            <span className="text-[#3B82F6]">React</span>,{" "}
-            <span className="text-[#3B82F6]">Node.js</span>, and{" "}
-            <span className="text-[#3B82F6]">Supabase</span>. Beyond coding
-            features, I care about database schema design, performance
-            optimization, and ensuring clean, maintainable codebases. I enjoy
-            collaborating on challenging projects, contributing to open source,
-            and continuously sharpening my craft.
+            {pageInfo?.backgroundInformation}
           </p>
         </div>
       </div>

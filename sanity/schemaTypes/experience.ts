@@ -8,9 +8,16 @@ export const experience = defineType({
   icon: DocumentTextIcon,
   fields: [
     {
+      name: "companyName",
+      title: "Company Name",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    },
+    {
       name: "jobTitle",
       title: "Job Title",
       type: "string",
+      validation: (Rule) => Rule.required(),
     },
     {
       name: "companyImage",
@@ -23,6 +30,7 @@ export const experience = defineType({
       title: "Date Started",
       type: "date",
       options: { dateFormat: "MM/YYYY", calendarTodayLabel: "Today" },
+      validation: (Rule) => Rule.required(),
     },
     {
       name: "dateEnded",
@@ -48,6 +56,7 @@ export const experience = defineType({
       title: "Technologies",
       type: "array",
       of: [defineArrayMember({ type: "reference", to: { type: "skill" } })],
+      validation: (Rule) => Rule.min(1),
     },
     {
       name: "points",

@@ -11,6 +11,9 @@ importers:
       '@heroicons/react':
         specifier: ^2.2.0
         version: 2.2.0(react@19.1.0)
+      '@sanity/client':
+        specifier: ^7.11.2
+        version: 7.11.2(debug@4.4.3)
       '@sanity/icons':
         specifier: ^3.7.4
         version: 3.7.4(react@19.1.0)

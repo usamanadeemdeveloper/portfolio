@@ -2,8 +2,12 @@
 
 import { motion } from "framer-motion";
 import ExperienceCard from "./ExperienceCard";
+import { EXPERIENCE_QUERYResult } from "@/sanity.types";
 
-function WorkExperience() {
+type Props = {
+  experiences: EXPERIENCE_QUERYResult;
+};
+function WorkExperience({ experiences }: Props) {
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -19,9 +23,9 @@ function WorkExperience() {
 
       {/* Scrollable Experience Cards */}
       <div className="w-full flex space-x-6 overflow-x-auto pb-6 px-2 md:px-4 snap-x snap-mandatory scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-[#3B82F6]/70 hover:scrollbar-thumb-[#3B82F6]">
-        <ExperienceCard />
-        <ExperienceCard />
-        <ExperienceCard />
+        {experiences?.map((experience) => (
+          <ExperienceCard key={experience._id} experience={experience} />
+        ))}
       </div>
     </motion.section>
   );
