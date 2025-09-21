@@ -35,6 +35,11 @@ body {
            hover:border-accent hover:text-accent;
   }
   .contactInput {
-    @apply outline-none bg-slate-400/10 rounded-sm border-b px-6 py-4 border-[#242424] text-gray-500 placeholder-gray-500 transition-all focus:border-[#F7AB0A]/40 focus:text-[#F7AB0A]/40 hover:border-[#F7AB0A]/40 focus:placeholder-[#F7AB0A]/40;
-  }
+  @apply outline-none 
+    bg-slate-900/80 rounded-sm border-b px-6 py-4 border-[#242424] 
+    text-gray-200 placeholder-gray-400 
+    transition-all 
+    focus:border-blue-500 focus:text-blue-400 focus:placeholder-blue-400 
+    hover:border-blue-500;
+}
 }

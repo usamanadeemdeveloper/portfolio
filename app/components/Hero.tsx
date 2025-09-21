@@ -1,9 +1,13 @@
 "use client";
 
 import { Cursor, useTypewriter } from "react-simple-typewriter";
-import BackgroudCircles from "./BackgroudCircles";
 import Link from "next/link";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+
+const BackgroundCircles = dynamic(() => import("./BackgroudCircles"), {
+  ssr: false,
+});
 
 function Hero() {
   const [text, count] = useTypewriter({
@@ -20,12 +24,13 @@ function Hero() {
 
   return (
     <div className="h-screen flex flex-col space-y-8 items-center justify-center text-center overflow-hidden">
-      <BackgroudCircles />
+      <BackgroundCircles />
 
       <Image
         className="relative rounded-full mx-auto object-cover border-4 border-primary"
         src="/profile-img.jpeg"
-        alt="Profile image"
+        alt="Profile image of Usama Nadeem"
+        fetchPriority="high"
         height={128}
         width={128}
         priority
@@ -33,17 +38,17 @@ function Hero() {
 
       <div className="z-20">
         {/* Subheading */}
-        <h2 className="text-sm uppercase text-secondary pb-2 tracking-[15px]">
+        <h1 className="text-sm uppercase text-secondary pb-2 tracking-[15px]">
           Software Engineer
-        </h2>
+        </h1>
 
         {/* Typewriter headline */}
-        <h1 className="text-lg sm:text-2xl md:text-4xl lg:text-5xl font-semibold px-4 sm:px-6 md:px-10">
+        <h2 className="text-lg sm:text-2xl md:text-4xl lg:text-5xl font-semibold px-4 sm:px-6 md:px-10">
           <span className="mr-3 inline-flex items-center">
             {text}
-            <Cursor cursorColor="var(--color-accent)" />
+            <Cursor cursorColor="var(--color-accent)" aria-hidden="true"/>
           </span>
-        </h1>
+        </h2>
 
         {/* Nav buttons */}
         <div className="pt-5 space-x-3">
