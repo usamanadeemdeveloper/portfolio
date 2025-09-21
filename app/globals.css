@@ -1,15 +1,17 @@
 @import "tailwindcss";
+@plugin 'tailwind-scrollbar';
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  --color-background: rgb(10, 20, 40);     /* dark navy */
+  --color-foreground: rgb(240, 245, 255);  /* almost white text */
+  --color-primary: rgb(59, 130, 246);      /* Tailwind blue-500 */
+  --color-secondary: rgb(96, 165, 250);    /* blue-400 */
+  --color-accent: rgb(29, 78, 216);        /* blue-700 */
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,4 +25,16 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer components {
+  .heroButton {
+    @apply px-5 py-2 cursor-pointer rounded-full uppercase text-xs tracking-widest
+           border border-secondary text-secondary
+           transition-all my-3 md:my-0
+           hover:border-accent hover:text-accent;
+  }
+  .contactInput {
+    @apply outline-none bg-slate-400/10 rounded-sm border-b px-6 py-4 border-[#242424] text-gray-500 placeholder-gray-500 transition-all focus:border-[#F7AB0A]/40 focus:text-[#F7AB0A]/40 hover:border-[#F7AB0A]/40 focus:placeholder-[#F7AB0A]/40;
+  }
 }
