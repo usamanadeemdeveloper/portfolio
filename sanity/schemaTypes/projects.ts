@@ -9,32 +9,34 @@ export const projects = defineType({
   fields: [
     {
       name: "title",
-      title: "Title",
+      title: "Project Title",
       type: "string",
+      validation: (Rule) => Rule.required(),
     },
     {
       name: "image",
-      title: "Image",
+      title: "Project Image",
       type: "image",
-      options: {
-        hotspot: true,
-      },
+      options: { hotspot: true },
     },
     {
       name: "summary",
-      title: "Summary",
+      title: "Project Summary",
       type: "text",
+      validation: (Rule) => Rule.required(),
     },
     {
       name: "technologies",
-      title: "Technologies",
+      title: "Technologies Used",
       type: "array",
       of: [defineArrayMember({ type: "reference", to: { type: "skill" } })],
+      validation: (Rule) => Rule.min(1).error("Select at least one technology"),
     },
     {
       name: "linkToBuild",
-      title: "Link To Build",
+      title: "Link to Build",
       type: "url",
+      validation: (Rule) => Rule.uri({ allowRelative: false, scheme: ["http", "https"] }),
     },
   ],
 });

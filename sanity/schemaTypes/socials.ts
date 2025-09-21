@@ -3,20 +3,24 @@ import { defineType } from "sanity";
 
 export const socials = defineType({
   name: "social",
-  title: "Social",
+  title: "Social Link",
   type: "document",
   icon: DocumentTextIcon,
   fields: [
     {
       name: "title",
-      title: "Title",
-      description: "Title for social media",
+      title: "Platform Name",
+      description: "Name of the social media platform",
       type: "string",
+      validation: (Rule) => Rule.required(),
     },
     {
       name: "url",
-      title: "URL",
+      title: "Profile URL",
+      description: "URL of the social media profile or page",
       type: "url",
+      validation: (Rule) =>
+        Rule.required().uri({ scheme: ["http", "https"] }),
     },
   ],
 });

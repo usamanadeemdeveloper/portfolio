@@ -6,17 +6,25 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typegen": "sanity schema extract && sanity typegen generate"
+
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "@sanity/icons": "^3.7.4",
+    "@sanity/image-url": "^1.2.0",
+    "@sanity/vision": "^4.9.0",
     "framer-motion": "^12.23.16",
     "next": "15.5.3",
+    "next-sanity": "^11.1.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "^7.63.0",
     "react-simple-typewriter": "^5.0.1",
-    "react-social-icons": "^6.25.0"
+    "react-social-icons": "^6.25.0",
+    "sanity": "^4.9.0",
+    "styled-components": "^6.1.19"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

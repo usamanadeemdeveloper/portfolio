@@ -9,24 +9,23 @@ export const skills = defineType({
   fields: [
     {
       name: "title",
-      title: "Title",
-      description: "Title of skill",
+      title: "Skill Name",
       type: "string",
+      description: "Name of the skill",
+      validation: (Rule) => Rule.required(),
     },
     {
       name: "progress",
-      title: "Progress",
+      title: "Proficiency",
       type: "number",
-      description: "Enter a number between 0 and 100",
-      validation: (Rule) => Rule.min(0).max(100),
+      description: "Skill proficiency (0-100)",
+      validation: (Rule) => Rule.required().min(0).max(100),
     },
     {
       name: "image",
-      title: "Image",
+      title: "Skill Image",
       type: "image",
-      options: {
-        hotspot: true,
-      },
+      options: { hotspot: true },
     },
   ],
 });

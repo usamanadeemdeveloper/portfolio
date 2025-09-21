@@ -3,27 +3,27 @@ import { defineArrayMember, defineType } from "sanity";
 
 export const pageInfo = defineType({
   name: "pageInfo",
-  title: "PageInfo",
+  title: "Page Info",
   type: "document",
   icon: DocumentTextIcon,
   fields: [
     {
       name: "name",
-      title: "Name",
+      title: "Full Name",
       type: "string",
+      validation: (Rule) => Rule.required(),
     },
     {
       name: "role",
-      title: "Role",
+      title: "Role / Title",
       type: "string",
+      validation: (Rule) => Rule.required(),
     },
     {
       name: "heroImage",
       title: "Hero Image",
       type: "image",
-      options: {
-        hotspot: true,
-      },
+      options: { hotspot: true },
     },
     {
       name: "backgroundInformation",
@@ -32,21 +32,22 @@ export const pageInfo = defineType({
     },
     {
       name: "profilePic",
-      title: "Profile Pic",
+      title: "Profile Picture",
       type: "image",
-      options: {
-        hotspot: true,
-      },
+      options: { hotspot: true },
     },
     {
       name: "phoneNumber",
       title: "Phone Number",
       type: "string",
+      validation: (Rule) =>
+        Rule.min(7).max(15).error("Phone number must be valid length"),
     },
     {
       name: "email",
       title: "Email",
       type: "string",
+      validation: (Rule) => Rule.email().required(),
     },
     {
       name: "address",
@@ -55,7 +56,7 @@ export const pageInfo = defineType({
     },
     {
       name: "socials",
-      title: "Socials",
+      title: "Social Links",
       type: "array",
       of: [defineArrayMember({ type: "reference", to: { type: "social" } })],
     },

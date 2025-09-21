@@ -9,45 +9,39 @@ export const experience = defineType({
   fields: [
     {
       name: "jobTitle",
-      title: "JobTitle",
+      title: "Job Title",
       type: "string",
     },
     {
       name: "companyImage",
       title: "Company Image",
       type: "image",
-      options: {
-        hotspot: true,
-      },
+      options: { hotspot: true },
     },
     {
       name: "dateStarted",
       title: "Date Started",
       type: "date",
-      options: {
-        dateFormat: "MM/YYYY",
-        calendarTodayLabel: "Today",
-      },
+      options: { dateFormat: "MM/YYYY", calendarTodayLabel: "Today" },
     },
     {
       name: "dateEnded",
       title: "Date Ended",
       type: "date",
-      options: {
-        dateFormat: "MM/YYYY",
-        calendarTodayLabel: "Today",
-      },
+      options: { dateFormat: "MM/YYYY", calendarTodayLabel: "Today" },
+      validation: (Rule) =>
+        Rule.custom((value, context) => {
+          const parent = context.parent as { isCurrentlyWorkingHere?: boolean };
+          return parent.isCurrentlyWorkingHere || value
+            ? true
+            : "Date Ended is required if not currently working here";
+        }),
     },
     {
       name: "isCurrentlyWorkingHere",
       title: "Is Currently Working Here",
       type: "boolean",
       initialValue: false,
-    },
-    {
-      name: "jobTitle",
-      title: "Job Title",
-      type: "string",
     },
     {
       name: "technologies",
@@ -60,6 +54,7 @@ export const experience = defineType({
       title: "Points",
       type: "array",
       of: [defineArrayMember({ type: "string" })],
+      validation: (Rule) => Rule.min(1),
     },
   ],
 });

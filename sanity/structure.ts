@@ -1,15 +1,66 @@
-import type {StructureResolver} from 'sanity/structure'
+import type { StructureResolver } from "sanity/structure";
 
-// https://www.sanity.io/docs/structure-builder-cheat-sheet
 export const structure: StructureResolver = (S) =>
   S.list()
-    .title('Blog')
+    .title("Portfolio Content")
     .items([
-      S.documentTypeListItem('post').title('Posts'),
-      S.documentTypeListItem('category').title('Categories'),
-      S.documentTypeListItem('author').title('Authors'),
+      // Profile group
+      S.listItem()
+        .title("Profile")
+        .icon(() => "👤")
+        .child(
+          S.list()
+            .title("Profile")
+            .items([
+              S.documentTypeListItem("pageInfo")
+                .title("About / Page Info")
+                .icon(() => "📝"),
+              S.documentTypeListItem("social")
+                .title("Social Links")
+                .icon(() => "🌐"),
+            ])
+        ),
+
+      // Resume group
+      S.listItem()
+        .title("Resume")
+        .icon(() => "💼")
+        .child(
+          S.list()
+            .title("Resume")
+            .items([
+              S.documentTypeListItem("experience")
+                .title("Work Experience")
+                .icon(() => "🏢"),
+              S.documentTypeListItem("skill")
+                .title("Skills")
+                .icon(() => "🛠️"),
+            ])
+        ),
+
+      // Projects / Portfolio group
+      S.listItem()
+        .title("Projects")
+        .icon(() => "📁")
+        .child(
+          S.list()
+            .title("Projects")
+            .items([
+              S.documentTypeListItem("projects")
+                .title("All Projects")
+                .icon(() => "📂"),
+            ])
+        ),
+
+      // Divider for clarity
       S.divider(),
+
+      // Any other document types not explicitly listed
       ...S.documentTypeListItems().filter(
-        (item) => item.getId() && !['post', 'category', 'author'].includes(item.getId()!),
+        (item) =>
+          item.getId() &&
+          !["pageInfo", "experience", "skill", "social", "projects"].includes(
+            item.getId()!
+          )
       ),
-    ])
+    ]);
