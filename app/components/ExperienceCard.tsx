@@ -22,11 +22,13 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
     if (!el) return;
 
     const handleScroll = () => {
-      if (el.scrollTop > 10) {
+      const canScroll = el.scrollHeight > el.clientHeight;
+      if (!canScroll) {
         setShowHint(false);
-      } else {
-        setShowHint(true);
+        return;
       }
+
+      setShowHint(el.scrollTop < 10);
     };
 
     handleScroll();

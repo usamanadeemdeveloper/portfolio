@@ -24,13 +24,13 @@ function Skills({ skills }: SkillsProps) {
         Hover over a skill for current proficiency
       </h3>
 
-      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4 sm:gap-6">
-        {skills.slice(0, skills.length / 2).map((skill) => (
-          <Skill key={skill._id} skill={skill} />
-        ))}
-        
-        {skills.slice(skills.length / 2, skills.length).map((skill) => (
-          <Skill key={skill._id} skill={skill} directionLeft/>
+      <div className="grid grid-cols-3 md:grid-cols-4 gap-4 md:gap-6 justify-items-center items-center mt-40">
+        {skills.map((skill, index) => (
+          <Skill
+            key={skill._id}
+            skill={skill}
+            directionLeft={index % 2 === 0}
+          />
         ))}
       </div>
     </motion.section>

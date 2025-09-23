@@ -2,7 +2,11 @@ import { defineQuery } from "next-sanity";
 import { sanityFetch } from "./live";
 
 const EXPERIENCE_QUERY = defineQuery(`
-  *[_type == "experience"] {
+  *[_type == "experience"] | order(
+    isCurrentlyWorkingHere desc, 
+    dateEnded desc, 
+    dateStarted desc
+  ) {
     _id,
     jobTitle,
     companyName,

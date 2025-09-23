@@ -13,40 +13,42 @@ type ProjectCardProps = {
 
 function ProjectCard({ project, index, total }: ProjectCardProps) {
   return (
-    <div className="w-screen flex-shrink-0 snap-center flex flex-col space-y-5 items-center justify-center p-10 md:p-20 lg:p-32 h-screen">
+    <div className="w-full flex-shrink-0 snap-center flex flex-col items-center justify-start p-6 sm:p-10 md:p-16 lg:p-20 min-h-[80vh] md:min-h-screen">
       <motion.div
         initial={{ y: -200, opacity: 0 }}
         transition={{ duration: 1.2 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
+        className="w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto flex justify-center"
       >
         {project.image && (
           <Image
             alt={`${project.title} screenshot`}
             src={urlFor(project.image).url()}
-            className="object-contain"
-            height={300}
-            width={300}
+            width={400}
+            height={400}
+            className="object-contain rounded-lg"
           />
         )}
       </motion.div>
 
-      <div className="space-y-6 max-w-4xl px-4 text-center">
-        <h4 className="text-3xl md:text-4xl font-semibold text-white">
-          <span className="underline decoration-blue-500/50 block mb-2">
+      <div className="mt-6 sm:mt-10 w-full max-w-3xl px-4 text-center space-y-5 sm:space-y-6">
+        <h4 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white">
+          <span className="block underline decoration-blue-500/50 mb-2">
             Case Study {index + 1} of {total}:
           </span>
           {project.title}
         </h4>
-        <p className="text-base md:text-lg text-gray-400 whitespace-pre-line break-words">
+
+        <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed whitespace-pre-line break-words">
           {project.summary}
         </p>
 
-        <div className="flex justify-center flex-wrap gap-3 mt-4">
+        <div className="mt-4 w-full flex flex-wrap justify-center gap-3">
           {project.technologies?.filter(Boolean).map((tech) => (
             <div
               key={tech._id}
-              className="flex items-center justify-center px-2 py-1 bg-gray-800 rounded-md border border-[#3B82F6]/20 shadow-sm"
+              className="flex items-center gap-2 px-3 py-1 bg-gray-800 rounded-lg border border-blue-500/20 shadow-sm hover:bg-gray-700 transition"
             >
               {tech.image && (
                 <Image
@@ -54,10 +56,10 @@ function ProjectCard({ project, index, total }: ProjectCardProps) {
                   alt={`${tech.title} Logo`}
                   width={24}
                   height={24}
-                  className="mr-2 rounded-full"
+                  className="rounded-full"
                 />
               )}
-              <span className="text-xs sm:text-sm text-gray-200">
+              <span className="text-xs sm:text-sm text-gray-200 font-medium">
                 {tech.title}
               </span>
             </div>
@@ -70,7 +72,7 @@ function ProjectCard({ project, index, total }: ProjectCardProps) {
               href={project.linkToBuild}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block px-6 py-2 bg-[#3B82F6] text-white font-medium rounded-md hover:bg-blue-600 transition"
+              className="inline-block px-6 py-2 sm:px-8 sm:py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium transition shadow-md"
             >
               View Live Project
             </a>

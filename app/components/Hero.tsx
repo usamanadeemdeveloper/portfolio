@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 import { GetPageInfoResult } from "@/sanity.types";
 import { urlFor } from "@/sanity/lib/image";
 
-const BackgroundCircles = dynamic(() => import("./BackgroudCircles"), {
+const BackgroundCircles = dynamic(() => import("./BackgroundCircles"), {
   ssr: false,
 });
 

@@ -55,37 +55,38 @@ function Projects({ projects }: ProjectsProps) {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1.5 }}
-      className="h-screen relative flex flex-col text-left max-w-full justify-evenly mx-auto items-center z-0"
+      className="relative flex flex-col items-center justify-center w-full min-h-screen text-center overflow-hidden"
     >
-      <h3 className="absolute top-24 uppercase tracking-[20px] text-blue-400 text-2xl">
+      <h3 className="absolute top-20 md:top-24 uppercase tracking-[15px] text-blue-400 text-xl md:text-2xl">
         Projects
       </h3>
 
-      <div
-        ref={scrollRef}
-        className="relative w-full flex overflow-x-scroll snap-x snap-mandatory scroll-smooth z-10 scrollbar-thin scrollbar-track-gray-700/20 scrollbar-thumb-blue-500/80"
-      >
-        {projects.map((project, i) => (
-          <ProjectCard
-            index={i}
-            project={project}
-            key={project._id}
-            total={projects.length}
-          />
-        ))}
+      <div className="mt-[6rem] md:mt-[7rem] w-full">
+        <div
+          ref={scrollRef}
+          className="flex w-full overflow-x-scroll snap-x snap-mandatory scroll-smooth scrollbar-thin scrollbar-track-gray-700/20 scrollbar-thumb-blue-500/80"
+        >
+          {projects.map((project, i) => (
+            <ProjectCard
+              key={project._id}
+              project={project}
+              index={i}
+              total={projects.length}
+            />
+          ))}
+        </div>
+        <ProjectNav
+          onPrev={() =>
+            scrollToProject(
+              (currentIndex - 1 + projects.length) % projects.length
+            )
+          }
+          onNext={() => scrollToProject((currentIndex + 1) % projects.length)}
+        />
       </div>
 
-      <ProjectNav
-        onPrev={() =>
-          scrollToProject(
-            (currentIndex - 1 + projects.length) % projects.length
-          )
-        }
-        onNext={() => scrollToProject((currentIndex + 1) % projects.length)}
-      />
-
       {/* Background accent strip */}
-      <div className="w-full absolute top-[30%] left-0 h-[500px] -skew-y-12 bg-blue-500/10" />
+      <div className="absolute top-1/4 left-0 w-full h-[400px] -skew-y-12 bg-blue-500/10" />
     </motion.div>
   );
 }
