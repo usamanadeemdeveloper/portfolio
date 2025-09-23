@@ -67,11 +67,12 @@ function ProjectCard({ project, index, total }: ProjectCardProps) {
         </div>
 
         {project.linkToBuild && (
-          <div className="mt-6">
+          <div className="mt-6 text-center">
             <a
               href={project.linkToBuild}
               target="_blank"
               rel="noopener noreferrer"
+              aria-label={`View live project: ${project.title}`}
               className="inline-block px-6 py-2 sm:px-8 sm:py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg font-medium transition shadow-md"
             >
               View Live Project

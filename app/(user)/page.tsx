@@ -46,7 +46,7 @@ export default async function Home() {
 
       <footer className="sticky bottom-5 w-full">
         <div className="flex items-center justify-center">
-          <Link href="#hero">
+          <Link href="#hero" aria-label="Scroll to top">
             <ArrowUpIcon className="w-12 h-12 rounded-full bg-gray-800 text-[#3B82F6] p-3 cursor-pointer hover:bg-gray-700 transition" />
           </Link>
         </div>

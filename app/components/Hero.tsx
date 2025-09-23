@@ -57,16 +57,16 @@ function Hero({ pageInfo }: HeroProps) {
         </h2>
 
         <div className="pt-5 space-x-3">
-          <Link href="#about">
+          <Link href="#about" aria-label="Go to About section">
             <button className="heroButton">About</button>
           </Link>
-          <Link href="#experience">
+          <Link href="#experience" aria-label="Go to Experience section">
             <button className="heroButton">Experience</button>
           </Link>
-          <Link href="#skills">
+          <Link href="#skills" aria-label="Go to Skills section">
             <button className="heroButton">Skills</button>
           </Link>
-          <Link href="#projects">
+          <Link href="#projects" aria-label="Go to Projects section">
             <button className="heroButton">Projects</button>
           </Link>
         </div>
