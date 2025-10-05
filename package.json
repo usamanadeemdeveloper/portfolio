@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build:sw": "tsc --project tsconfig.sw.json",
+    "build": "npm run build:sw && next build",
     "start": "next start",
     "lint": "eslint",
     "typegen": "sanity schema extract && sanity typegen generate"
