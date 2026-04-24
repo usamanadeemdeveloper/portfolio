@@ -45,7 +45,10 @@ sw.addEventListener("activate", (event) => {
 sw.addEventListener("fetch", (event) => {
   const { request } = event;
 
-  if (request.method !== "GET") return;
+  if (
+    request.method !== "GET" ||
+    !request.url.startsWith("http")
+  ) return;
 
   const requestUrl = new URL(request.url);
   if (EXCLUDED_HOSTS.some((host) => requestUrl.hostname.includes(host))) return;
