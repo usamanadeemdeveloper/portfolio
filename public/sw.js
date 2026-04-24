@@ -8,7 +8,15 @@ const URLS_TO_CACHE = [
     "/manifest.json",
     "/android-chrome-192x192.png",
     "/android-chrome-512x512.png",
-    "/apple-touch-icon.png"
+    "/apple-touch-icon.png",
+];
+const EXCLUDED_HOSTS = [
+    "sanity.io",
+    "cdn.sanity.io",
+    "googleapis.com",
+    "youtube.com",
+    "fonts.googleapis.com",
+    "fonts.gstatic.com",
 ];
 const sw = self;
 sw.addEventListener("install", (event) => {
@@ -16,21 +24,27 @@ sw.addEventListener("install", (event) => {
     sw.skipWaiting();
 });
 sw.addEventListener("activate", (event) => {
-    event.waitUntil(caches.keys().then((names) => Promise.all(names.filter((n) => n !== CACHE_NAME).map((n) => caches.delete(n)))));
+    event.waitUntil(caches
+        .keys()
+        .then((names) => Promise.all(names.filter((n) => n !== CACHE_NAME).map((n) => caches.delete(n)))));
     sw.clients.claim();
 });
 sw.addEventListener("fetch", (event) => {
     const { request } = event;
-    // Only handle GET requests
-    if (request.method !== "GET")
+    if (request.method !== "GET" ||
+        !request.url.startsWith("http"))
         return;
-    // Handle navigation requests (like visiting "/about", etc.)
+    const requestUrl = new URL(request.url);
+    if (EXCLUDED_HOSTS.some((host) => requestUrl.hostname.includes(host)))
+        return;
     if (request.mode === "navigate") {
         event.respondWith((async () => {
             try {
                 const networkResponse = await fetch(request);
-                const cache = await caches.open(CACHE_NAME);
-                cache.put("/", networkResponse.clone());
+                if (networkResponse.ok) {
+                    const cache = await caches.open(CACHE_NAME);
+                    cache.put("/", networkResponse.clone());
+                }
                 return networkResponse;
             }
             catch {
@@ -43,21 +57,22 @@ sw.addEventListener("fetch", (event) => {
         })());
         return;
     }
-    // For assets like JS, CSS, images, etc.
     event.respondWith((async () => {
         const cached = await caches.match(request);
         if (cached)
             return cached;
         try {
             const response = await fetch(request);
-            const cache = await caches.open(CACHE_NAME);
-            cache.put(request, response.clone());
+            if (response.ok) {
+                const cache = await caches.open(CACHE_NAME);
+                cache.put(request, response.clone());
+            }
             return response;
         }
         catch {
-            // Always return a Response (to satisfy TS)
             const fallback = await caches.match("/offline.html");
-            return (fallback ?? new Response("Offline", { status: 503, statusText: "Offline" }));
+            return (fallback ??
+                new Response("Offline", { status: 503, statusText: "Offline" }));
         }
     })());
 });
