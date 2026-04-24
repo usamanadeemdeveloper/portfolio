@@ -7,7 +7,7 @@ const PROJECTS_QUERY = defineQuery(`
     title,
     summary,
     linkToBuild,
-    image,
+    images,
     technologies[]->{
       _id,
       title,

@@ -19,11 +19,11 @@ function Header({ socials }: HeaderProps) {
       >
         {socials.map((social) => (
           <SocialIcon
+            title={social.title}
             key={social._id}
             url={social.url}
             bgColor="transparent"
             fgColor="var(--color-primary)"
-            title="Visit Usama's YouTube"
           />
         ))}
       </motion.div>

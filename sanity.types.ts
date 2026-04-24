@@ -20,7 +20,7 @@ export type Projects = {
   _updatedAt: string;
   _rev: string;
   title?: string;
-  image?: {
+  images?: Array<{
     asset?: {
       _ref: string;
       _type: "reference";
@@ -30,8 +30,11 @@ export type Projects = {
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
+    alt?: string;
+    caption?: string;
     _type: "image";
-  };
+    _key: string;
+  }>;
   summary?: string;
   technologies?: Array<{
     _ref: string;
@@ -273,9 +276,9 @@ export type SanityAssetSourceData = {
 
 export type AllSanitySchemaTypes = Projects | Social | Experience | Skill | PageInfo | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
-// Source: ./sanity/lib/getExperience.ts
+// Source: sanity/lib/getExperience.ts
 // Variable: EXPERIENCE_QUERY
-// Query: *[_type == "experience"] {    _id,    jobTitle,    companyName,    companyImage,    dateStarted,    dateEnded,    isCurrentlyWorkingHere,    points,    technologies[]->{      _id,      image,      title,      progress,    }  }
+// Query: *[_type == "experience"] | order(    isCurrentlyWorkingHere desc,     dateEnded desc,     dateStarted desc  ) {    _id,    jobTitle,    companyName,    companyImage,    dateStarted,    dateEnded,    isCurrentlyWorkingHere,    points,    technologies[]->{      _id,      image,      title,      progress,    }  }
 export type EXPERIENCE_QUERYResult = Array<{
   _id: string;
   jobTitle: string | null;
@@ -315,7 +318,7 @@ export type EXPERIENCE_QUERYResult = Array<{
   }> | null;
 }>;
 
-// Source: ./sanity/lib/getPageInfo.ts
+// Source: sanity/lib/getPageInfo.ts
 // Variable: getPageInfo
 // Query: *[_type == "pageInfo"][0]
 export type GetPageInfoResult = {
@@ -363,15 +366,15 @@ export type GetPageInfoResult = {
   }>;
 } | null;
 
-// Source: ./sanity/lib/getProjects.ts
+// Source: sanity/lib/getProjects.ts
 // Variable: PROJECTS_QUERY
-// Query: *[_type == "projects"] {    _id,    title,    summary,    linkToBuild,    image,    technologies[]->{      _id,      title,      image    }  }
+// Query: *[_type == "projects"] {    _id,    title,    summary,    linkToBuild,    images,    technologies[]->{      _id,      title,      image    }  }
 export type PROJECTS_QUERYResult = Array<{
   _id: string;
   title: string | null;
   summary: string | null;
   linkToBuild: string | null;
-  image: {
+  images: Array<{
     asset?: {
       _ref: string;
       _type: "reference";
@@ -381,8 +384,11 @@ export type PROJECTS_QUERYResult = Array<{
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
+    alt?: string;
+    caption?: string;
     _type: "image";
-  } | null;
+    _key: string;
+  }> | null;
   technologies: Array<{
     _id: string;
     title: string | null;
@@ -401,7 +407,7 @@ export type PROJECTS_QUERYResult = Array<{
   }> | null;
 }>;
 
-// Source: ./sanity/lib/getSkills.ts
+// Source: sanity/lib/getSkills.ts
 // Variable: getSkills
 // Query: *[_type == "skill"]
 export type GetSkillsResult = Array<{
@@ -426,7 +432,7 @@ export type GetSkillsResult = Array<{
   };
 }>;
 
-// Source: ./sanity/lib/getSocials.ts
+// Source: sanity/lib/getSocials.ts
 // Variable: getSocials
 // Query: *[_type == "social"]
 export type GetSocialsResult = Array<{
@@ -443,9 +449,9 @@ export type GetSocialsResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "\n  *[_type == \"experience\"] {\n    _id,\n    jobTitle,\n    companyName,\n    companyImage,\n    dateStarted,\n    dateEnded,\n    isCurrentlyWorkingHere,\n    points,\n    technologies[]->{\n      _id,\n      image,\n      title,\n      progress,\n    }\n  }\n": EXPERIENCE_QUERYResult;
+    "\n  *[_type == \"experience\"] | order(\n    isCurrentlyWorkingHere desc, \n    dateEnded desc, \n    dateStarted desc\n  ) {\n    _id,\n    jobTitle,\n    companyName,\n    companyImage,\n    dateStarted,\n    dateEnded,\n    isCurrentlyWorkingHere,\n    points,\n    technologies[]->{\n      _id,\n      image,\n      title,\n      progress,\n    }\n  }\n": EXPERIENCE_QUERYResult;
     "*[_type == \"pageInfo\"][0]": GetPageInfoResult;
-    "\n  *[_type == \"projects\"] {\n    _id,\n    title,\n    summary,\n    linkToBuild,\n    image,\n    technologies[]->{\n      _id,\n      title,\n      image\n    }\n  }\n": PROJECTS_QUERYResult;
+    "\n  *[_type == \"projects\"] {\n    _id,\n    title,\n    summary,\n    linkToBuild,\n    images,\n    technologies[]->{\n      _id,\n      title,\n      image\n    }\n  }\n": PROJECTS_QUERYResult;
     "*[_type == \"skill\"]": GetSkillsResult;
     "*[_type == \"social\"]": GetSocialsResult;
   }

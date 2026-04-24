@@ -14,10 +14,29 @@ export const projects = defineType({
       validation: (Rule) => Rule.required(),
     },
     {
-      name: "image",
-      title: "Project Image",
-      type: "image",
-      options: { hotspot: true },
+      name: "images",
+      title: "Project Images",
+      type: "array",
+      of: [
+        defineArrayMember({
+          type: "image",
+          options: { hotspot: true },
+          fields: [
+            {
+              name: "alt",
+              title: "Alt Text",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            },
+            {
+              name: "caption",
+              title: "Caption",
+              type: "string",
+            },
+          ],
+        }),
+      ],
+      validation: (Rule) => Rule.min(1).error("Add at least one image"),
     },
     {
       name: "summary",
