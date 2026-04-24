@@ -24,14 +24,16 @@ function ProjectCard({ project, index, total }: ProjectCardProps) {
         className="w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto flex justify-center"
       >
         {projectImageUrl && (
-          <Image
-            alt={`${project.title} screenshot`}
-            src={projectImageUrl}
-            width={400}
-            height={400}
-            className="object-contain rounded-lg"
-            unoptimized={projectIsGif}
-          />
+          <div className="relative w-full aspect-square">
+            <Image
+              alt={`${project.title} screenshot`}
+              src={projectImageUrl}
+              width={400}
+              height={400}
+              className="object-contain rounded-lg"
+              unoptimized={projectIsGif}
+            />
+          </div>
         )}
       </motion.div>
 
