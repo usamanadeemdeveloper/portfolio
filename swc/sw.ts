@@ -58,8 +58,10 @@ sw.addEventListener("fetch", (event) => {
       (async (): Promise<Response> => {
         try {
           const networkResponse = await fetch(request);
-          const cache = await caches.open(CACHE_NAME);
-          cache.put("/", networkResponse.clone());
+          if (networkResponse.ok) {
+            const cache = await caches.open(CACHE_NAME);
+            cache.put("/", networkResponse.clone());
+          }
           return networkResponse;
         } catch {
           const cachedShell = await caches.match("/");
@@ -79,8 +81,10 @@ sw.addEventListener("fetch", (event) => {
 
       try {
         const response = await fetch(request);
-        const cache = await caches.open(CACHE_NAME);
-        cache.put(request, response.clone());
+        if (response.ok) {
+          const cache = await caches.open(CACHE_NAME);
+          cache.put(request, response.clone());
+        }
         return response;
       } catch {
         const fallback = await caches.match("/offline.html");
