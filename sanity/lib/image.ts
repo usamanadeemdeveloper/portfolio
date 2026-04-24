@@ -9,3 +9,8 @@ const builder = createImageUrlBuilder({ projectId, dataset })
 export const urlFor = (source: SanityImageSource) => {
   return builder.image(source)
 }
+
+export function isGif(url?: string) {
+  if (!url) return false;
+  return url.toLowerCase().includes(".gif");
+}

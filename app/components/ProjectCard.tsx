@@ -1,7 +1,7 @@
 "use client";
 
 import { PROJECTS_QUERYResult } from "@/sanity.types";
-import { urlFor } from "@/sanity/lib/image";
+import { isGif, urlFor } from "@/sanity/lib/image";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
@@ -12,6 +12,8 @@ type ProjectCardProps = {
 };
 
 function ProjectCard({ project, index, total }: ProjectCardProps) {
+  const projectImageUrl = project.image ? urlFor(project.image).url() : null;
+  const projectIsGif = projectImageUrl ? isGif(projectImageUrl) : false;
   return (
     <div className="w-full flex-shrink-0 snap-center flex flex-col items-center justify-start p-6 sm:p-10 md:p-16 lg:p-20 min-h-[80vh] md:min-h-screen">
       <motion.div
@@ -21,13 +23,14 @@ function ProjectCard({ project, index, total }: ProjectCardProps) {
         viewport={{ once: true }}
         className="w-full max-w-md sm:max-w-lg md:max-w-xl mx-auto flex justify-center"
       >
-        {project.image && (
+        {projectImageUrl && (
           <Image
             alt={`${project.title} screenshot`}
-            src={urlFor(project.image).url()}
+            src={projectImageUrl}
             width={400}
             height={400}
             className="object-contain rounded-lg"
+            unoptimized={projectIsGif}
           />
         )}
       </motion.div>
