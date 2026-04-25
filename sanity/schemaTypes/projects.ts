@@ -21,19 +21,6 @@ export const projects = defineType({
         defineArrayMember({
           type: "image",
           options: { hotspot: true },
-          fields: [
-            {
-              name: "alt",
-              title: "Alt Text",
-              type: "string",
-              validation: (Rule) => Rule.required(),
-            },
-            {
-              name: "caption",
-              title: "Caption",
-              type: "string",
-            },
-          ],
         }),
       ],
       validation: (Rule) => Rule.min(1).error("Add at least one image"),
