@@ -10,15 +10,9 @@ type ProjectCardProps = {
   project: PROJECTS_QUERYResult[number];
   cardsPerView: number;
   index: number;
-  total: number;
 };
 
-function ProjectCard({
-  project,
-  index,
-  total,
-  cardsPerView,
-}: ProjectCardProps) {
+function ProjectCard({ project, index, cardsPerView }: ProjectCardProps) {
   const firstImage = project.images?.[0];
   const imageUrl = firstImage ? urlFor(firstImage).url() : null;
   const isGifImage = imageUrl ? isGif(imageUrl) : false;

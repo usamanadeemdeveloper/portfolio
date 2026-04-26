@@ -98,7 +98,7 @@ function Projects({ projects }: ProjectsProps) {
       </div>
 
       <div className="mb-24 text-center w-full px-4">
-        <motion.h3 
+        <motion.h3
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
@@ -107,7 +107,7 @@ function Projects({ projects }: ProjectsProps) {
         >
           Portfolio
         </motion.h3>
-        <motion.h2 
+        <motion.h2
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.1 }}
@@ -132,7 +132,6 @@ function Projects({ projects }: ProjectsProps) {
               project={project}
               cardsPerView={cardsPerView}
               index={i}
-              total={projects.length}
             />
           ))}
         </div>

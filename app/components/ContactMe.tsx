@@ -28,7 +28,7 @@ function ContactMe() {
       <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center">
         {/* Header Section */}
         <div className="text-center mb-16 md:mb-20">
-          <motion.h3 
+          <motion.h3
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -36,14 +36,14 @@ function ContactMe() {
           >
             Availability: Open for Projects
           </motion.h3>
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
             className="text-3xl sm:text-4xl md:text-7xl font-bold text-gradient leading-[1.1] tracking-tight"
           >
-            Let's build something <br className="hidden md:block" />
+            {`Let's build something`} <br className="hidden md:block" />
             <span className="text-blue-500/80">extraordinary</span> together.
           </motion.h2>
         </div>
@@ -52,28 +52,53 @@ function ContactMe() {
           {/* Contact Details Nodes */}
           <div className="lg:col-span-2 space-y-6 md:space-y-8">
             <div className="space-y-4 md:space-y-6">
-              <h4 className="text-white/80 text-lg md:text-xl font-bold px-2">Direct Access</h4>
+              <h4 className="text-white/80 text-lg md:text-xl font-bold px-2">
+                Direct Access
+              </h4>
               {[
-                { icon: PhoneIcon, label: 'Call', value: '+92 336 8507047', color: 'bg-blue-500' },
-                { icon: EnvelopeIcon, label: 'Email', value: 'usamanadeemparacha@gmail.com', color: 'bg-cyan-500' },
-                { icon: MapPinIcon, label: 'Location', value: 'Karachi, Pakistan', color: 'bg-blue-600' }
+                {
+                  icon: PhoneIcon,
+                  label: "Call",
+                  value: "+92 336 8507047",
+                  color: "bg-blue-500",
+                },
+                {
+                  icon: EnvelopeIcon,
+                  label: "Email",
+                  value: "usamanadeemparacha@gmail.com",
+                  color: "bg-cyan-500",
+                },
+                {
+                  icon: MapPinIcon,
+                  label: "Location",
+                  value: "Karachi, Pakistan",
+                  color: "bg-blue-600",
+                },
               ].map((item, i) => (
-                <motion.div 
+                <motion.div
                   key={item.label}
                   initial={{ opacity: 0, x: -30 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.8, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{
+                    duration: 0.8,
+                    delay: i * 0.1,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
                   viewport={{ once: true }}
                   whileTap={{ scale: 0.98 }}
                   className="group relative"
                 >
                   <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500/20 to-transparent rounded-[1.5rem] opacity-0 group-hover:opacity-100 transition duration-500 blur-sm" />
                   <div className="glass relative p-5 md:p-6 rounded-[1.5rem] flex items-center gap-4 md:gap-6 group-hover:border-blue-500/30 transition-all duration-500">
-                    <div className={`flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-2xl ${item.color}/10 flex items-center justify-center text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-all duration-500 shadow-lg shadow-blue-500/5`}>
+                    <div
+                      className={`flex-shrink-0 w-10 h-10 md:w-12 md:h-12 rounded-2xl ${item.color}/10 flex items-center justify-center text-blue-400 group-hover:bg-blue-500 group-hover:text-white transition-all duration-500 shadow-lg shadow-blue-500/5`}
+                    >
                       <item.icon className="h-5 w-5 md:h-6 md:w-6" />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-[9px] md:text-[10px] text-white/30 uppercase tracking-widest font-bold mb-0.5">{item.label}</p>
+                      <p className="text-[9px] md:text-[10px] text-white/30 uppercase tracking-widest font-bold mb-0.5">
+                        {item.label}
+                      </p>
                       <p className="text-white/80 text-sm md:text-base font-bold break-all group-hover:text-white transition-colors">
                         {item.value}
                       </p>
@@ -82,17 +107,19 @@ function ContactMe() {
                 </motion.div>
               ))}
             </div>
-            
+
             {/* Social Signal */}
             <div className="glass p-6 md:p-8 rounded-[1.5rem] border-dashed border-white/5 bg-white/[0.01]">
               <p className="text-white/40 text-xs md:text-sm leading-relaxed italic">
-                "Driven by precision, built with passion. I'm currently looking for new opportunities to solve complex problems."
+                {
+                  "Driven by precision, built with passion. I'm currently looking for new opportunities to solve complex problems."
+                }
               </p>
             </div>
           </div>
 
           {/* Premium Form */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.98 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
@@ -101,7 +128,7 @@ function ContactMe() {
           >
             {/* Subtle internal aura */}
             <div className="absolute -top-24 -right-24 w-48 h-48 bg-blue-500/10 rounded-full blur-[80px]" />
-            
+
             <form
               onSubmit={handleSubmit(onSubmit)}
               className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 relative z-10"
@@ -150,7 +177,7 @@ function ContactMe() {
                   Dispatch Message
                 </span>
               </motion.button>
-              
+
               <p className="md:col-span-2 text-center text-[10px] text-white/20 font-bold uppercase tracking-widest pt-2">
                 Typically responds within 24 hours
               </p>

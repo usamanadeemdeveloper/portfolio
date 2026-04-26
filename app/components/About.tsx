@@ -76,7 +76,7 @@ function About({ pageInfo }: AboutProps) {
         >
           <div className="space-y-6">
             <h4 className="text-2xl md:text-4xl font-bold text-white leading-tight">
-              Designing and building <span className="text-blue-500/80">tomorrow's</span> digital landscape.
+              Designing and building <span className="text-blue-500/80">{`tomorrow's`}</span> digital landscape.
             </h4>
             <div className="h-1 w-20 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full" />
           </div>
