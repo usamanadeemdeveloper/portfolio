@@ -5,6 +5,7 @@ const PROJECTS_QUERY = defineQuery(`
   *[_type == "projects"] {
     _id,
     title,
+    slug,
     summary,
     linkToBuild,
     images,

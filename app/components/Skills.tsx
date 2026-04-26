@@ -14,25 +14,46 @@ function Skills({ skills }: SkillsProps) {
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1.5 }}
-      className="min-h-screen max-w-7xl mx-auto px-6 md:px-10 flex flex-col justify-center items-center text-center md:text-left"
+      viewport={{ once: true }}
+      className="relative min-h-screen max-w-7xl mx-auto px-6 md:px-10 flex flex-col justify-center items-center py-32 overflow-hidden"
     >
-      <div className="mb-12 text-center">
-        <h3 className="uppercase tracking-[12px] md:tracking-[20px] text-gray-500 text-lg md:text-2xl">
-          Skills
-        </h3>
-
-        <p className="mt-4 uppercase tracking-[2px] md:tracking-[3px] text-gray-500 text-xs md:text-sm">
-          Hover over a skill for current proficiency
-        </p>
+      {/* Dynamic Background Atmosphere */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full -z-10">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/[0.02] rounded-full blur-[120px]" />
       </div>
 
-      <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6 justify-items-center items-center">
+      <div className="mb-24 text-center w-full">
+        <motion.h3 
+          initial={{ y: 20, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="uppercase tracking-[0.5em] text-white/30 text-[10px] md:text-xs font-bold mb-3"
+        >
+          Expertise
+        </motion.h3>
+        <motion.h2 
+          initial={{ y: 20, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          viewport={{ once: true }}
+          className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-white via-white to-white/40"
+        >
+          Technical <span className="text-blue-500/80">Toolkit</span>
+        </motion.h2>
+      </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-x-8 gap-y-16 sm:gap-x-12 sm:gap-y-20 w-full max-w-6xl">
         {skills.map((skill, index) => (
-          <Skill
+          <motion.div
             key={skill._id}
-            skill={skill}
-            directionLeft={index % 2 === 0}
-          />
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+          >
+            <Skill skill={skill} />
+          </motion.div>
         ))}
       </div>
     </motion.section>

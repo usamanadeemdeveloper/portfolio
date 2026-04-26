@@ -20,6 +20,7 @@ export type Projects = {
   _updatedAt: string;
   _rev: string;
   title?: string;
+  slug?: Slug;
   images?: Array<{
     asset?: {
       _ref: string;
@@ -30,8 +31,6 @@ export type Projects = {
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    alt?: string;
-    caption?: string;
     _type: "image";
     _key: string;
   }>;
@@ -44,6 +43,9 @@ export type Projects = {
     [internalGroqTypeReferenceTo]?: "skill";
   }>;
   linkToBuild?: string;
+  coreTech?: string;
+  year?: number;
+  platform?: string;
 };
 
 export type Social = {
@@ -366,12 +368,13 @@ export type GetPageInfoResult = {
   }>;
 } | null;
 
-// Source: sanity/lib/getProjects.ts
-// Variable: PROJECTS_QUERY
-// Query: *[_type == "projects"] {    _id,    title,    summary,    linkToBuild,    images,    technologies[]->{      _id,      title,      image    }  }
-export type PROJECTS_QUERYResult = Array<{
+// Source: sanity/lib/getProjectBySlug.ts
+// Variable: PROJECT_BY_SLUG_QUERY
+// Query: *[_type == "projects" && slug.current == $slug][0] {    _id,    title,    slug,    summary,    linkToBuild,    images,    coreTech,    year,    platform,    technologies[]->{      _id,      title,      image    }  }
+export type PROJECT_BY_SLUG_QUERYResult = {
   _id: string;
   title: string | null;
+  slug: Slug | null;
   summary: string | null;
   linkToBuild: string | null;
   images: Array<{
@@ -384,8 +387,49 @@ export type PROJECTS_QUERYResult = Array<{
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
-    alt?: string;
-    caption?: string;
+    _type: "image";
+    _key: string;
+  }> | null;
+  coreTech: string | null;
+  year: number | null;
+  platform: string | null;
+  technologies: Array<{
+    _id: string;
+    title: string | null;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    } | null;
+  }> | null;
+} | null;
+
+// Source: sanity/lib/getProjects.ts
+// Variable: PROJECTS_QUERY
+// Query: *[_type == "projects"] {    _id,    title,    slug,    summary,    linkToBuild,    images,    technologies[]->{      _id,      title,      image    }  }
+export type PROJECTS_QUERYResult = Array<{
+  _id: string;
+  title: string | null;
+  slug: Slug | null;
+  summary: string | null;
+  linkToBuild: string | null;
+  images: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
     _type: "image";
     _key: string;
   }> | null;
@@ -451,7 +495,8 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "\n  *[_type == \"experience\"] | order(\n    isCurrentlyWorkingHere desc, \n    dateEnded desc, \n    dateStarted desc\n  ) {\n    _id,\n    jobTitle,\n    companyName,\n    companyImage,\n    dateStarted,\n    dateEnded,\n    isCurrentlyWorkingHere,\n    points,\n    technologies[]->{\n      _id,\n      image,\n      title,\n      progress,\n    }\n  }\n": EXPERIENCE_QUERYResult;
     "*[_type == \"pageInfo\"][0]": GetPageInfoResult;
-    "\n  *[_type == \"projects\"] {\n    _id,\n    title,\n    summary,\n    linkToBuild,\n    images,\n    technologies[]->{\n      _id,\n      title,\n      image\n    }\n  }\n": PROJECTS_QUERYResult;
+    "\n  *[_type == \"projects\" && slug.current == $slug][0] {\n    _id,\n    title,\n    slug,\n    summary,\n    linkToBuild,\n    images,\n    coreTech,\n    year,\n    platform,\n    technologies[]->{\n      _id,\n      title,\n      image\n    }\n  }\n": PROJECT_BY_SLUG_QUERYResult;
+    "\n  *[_type == \"projects\"] {\n    _id,\n    title,\n    slug,\n    summary,\n    linkToBuild,\n    images,\n    technologies[]->{\n      _id,\n      title,\n      image\n    }\n  }\n": PROJECTS_QUERYResult;
     "*[_type == \"skill\"]": GetSkillsResult;
     "*[_type == \"social\"]": GetSocialsResult;
   }

@@ -1,118 +1,128 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { EXPERIENCE_QUERYResult } from "@/sanity.types";
 import { urlFor } from "@/sanity/lib/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { ArrowDownIcon } from "@sanity/icons";
-
-const MotionImage = motion.create(Image);
+import { ChevronDownIcon, ChevronUpIcon } from "@sanity/icons";
 
 type ExperienceCardProps = {
   experience: EXPERIENCE_QUERYResult[number];
 };
 
 function ExperienceCard({ experience }: ExperienceCardProps) {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [showHint, setShowHint] = useState(true);
-
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-
-    const handleScroll = () => {
-      const canScroll = el.scrollHeight > el.clientHeight;
-      if (!canScroll) {
-        setShowHint(false);
-        return;
-      }
-
-      setShowHint(el.scrollTop < 10);
-    };
-
-    handleScroll();
-
-    el.addEventListener("scroll", handleScroll);
-    return () => el.removeEventListener("scroll", handleScroll);
-  }, []);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <article className="flex flex-col items-center rounded-lg bg-[rgb(28,28,28)] p-6 sm:p-8 md:p-10 hover:opacity-100 opacity-50 cursor-pointer transition-opacity duration-300 overflow-hidden flex-shrink-0 w-full md:w-[50%] lg:w-[47%] h-[550px] sm:h-[600px] md:h-[650px] snap-center shadow-lg shadow-black/40 border border-[#3B82F6]/20">
-      {experience.companyImage && (
-        <MotionImage
-          initial={{ y: -50, opacity: 0 }}
-          transition={{ duration: 1.2 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          src={urlFor(experience.companyImage).url()}
-          alt="Company logo"
-          width={90}
-          height={90}
-          className="rounded-full object-cover object-center border-2 border-[#3B82F6]/40 shadow-md"
-        />
-      )}
-
-      <div className="flex flex-col w-full mt-6 px-2 sm:px-6 md:px-10 flex-1 min-h-0">
-        <div className="text-center flex-shrink-0">
-          <h4 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-gray-100">
-            {experience.jobTitle}
-          </h4>
-          <p className="font-bold text-base sm:text-lg md:text-xl lg:text-2xl mt-1 text-[#3B82F6]">
-            {experience.companyName}
-          </p>
-        </div>
-
-        <div className="flex justify-start space-x-2 my-4 overflow-x-auto max-w-full flex-shrink-0">
-          {experience.technologies?.map(
-            (tech) =>
-              tech.image && (
+    <motion.article 
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="group relative w-full max-w-3xl"
+    >
+      <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-[2.5rem] blur-xl opacity-40 md:opacity-0 md:group-hover:opacity-100 transition duration-1000" />
+      
+      <div className="bg-white/[0.03] backdrop-blur-2xl border border-white/10 relative rounded-[2.5rem] overflow-hidden transition-all duration-500 md:hover:border-white/20 shadow-2xl">
+        
+        {/* 1. Header Section: Full Visibility */}
+        <div className="p-6 sm:p-10 pb-6">
+          <div className="flex flex-col sm:flex-row items-start gap-5 sm:gap-8">
+            {experience.companyImage && (
+              <div className="relative flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white/[0.05] border border-white/10 p-2 sm:p-3 shadow-inner">
                 <Image
-                  key={tech._id}
-                  src={urlFor(tech.image).url()}
-                  alt={`${tech.title} Logo`}
-                  className="rounded-full sm:w-10 sm:h-10 border border-[#3B82F6]/30 shadow-sm"
-                  height={36}
-                  width={36}
+                  src={urlFor(experience.companyImage).url()}
+                  alt={experience.companyName || "Company logo"}
+                  fill
+                  className="object-contain p-2 grayscale-0 md:grayscale md:group-hover:grayscale-0 transition-all duration-700"
                 />
-              )
-          )}
-        </div>
+              </div>
+            )}
 
-        {/* Scrollable content */}
-        <div
-          ref={scrollRef}
-          className="relative flex-1 min-h-0 overflow-y-auto text-left mt-4 scrollbar-thin scrollbar-thumb-[#3B82F6] scrollbar-track-gray-800 scrollbar-thumb-rounded scrollbar-track-rounded"
-        >
-          <p className="uppercase py-2 text-gray-400 text-xs sm:text-sm md:text-base tracking-wide">
-            {new Date(experience.dateStarted ?? "").toDateString()} -{" "}
-            {experience.isCurrentlyWorkingHere
-              ? "Present"
-              : new Date(experience.dateEnded ?? "").toDateString()}
-          </p>
-
-          <ul className="list-disc space-y-2 sm:space-y-3 ml-5 text-xs sm:text-sm md:text-base lg:text-lg text-gray-300">
-            {experience.points?.map((point, i) => (
-              <li key={i}>{point}</li>
-            ))}
-          </ul>
-
-          {/* Scroll hint arrow + tooltip */}
-          {showHint && (
-            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 animate-bounce group">
-              <ArrowDownIcon className="w-12 h-12 rounded-full bg-gray-800 text-[#3B82F6] p-3 cursor-pointer hover:bg-gray-700 transition" />
-              {/* Tooltip */}
-              <span
-                className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 rounded-md text-xs text-white bg-gray-900 
-                 opacity-0 group-hover:opacity-100 transition whitespace-nowrap"
-              >
-                Scroll to see more
-              </span>
+            <div className="flex-1 min-w-0">
+              <h4 className="text-2xl sm:text-3xl font-bold text-white leading-tight break-words">
+                {experience.jobTitle}
+              </h4>
+              <p className="text-blue-500/90 font-bold text-base sm:text-lg mt-1">
+                {experience.companyName}
+              </p>
+              <p className="text-white/30 text-[10px] sm:text-xs uppercase tracking-[0.2em] font-bold mt-2">
+                {new Date(experience.dateStarted ?? "").toLocaleDateString('en-US', { month: 'short', year: 'numeric' })} — {experience.isCurrentlyWorkingHere ? "Present" : new Date(experience.dateEnded ?? "").toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+              </p>
             </div>
-          )}
+          </div>
         </div>
+
+        {/* 2. Tech Stack: Wrapping Grid (No Scroll, All Visible) */}
+        <div className="px-6 sm:px-10 pb-6 flex flex-wrap gap-2 sm:gap-3">
+          {experience.technologies?.map((tech) => (
+            <motion.div 
+              key={tech._id}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center gap-2 bg-white/[0.04] border border-white/10 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full"
+            >
+              {tech.image && (
+                <div className="relative w-3.5 h-3.5 sm:w-4 h-4">
+                  <Image
+                    src={urlFor(tech.image).url()}
+                    alt={tech.title || ""}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+              )}
+              <span className="text-[9px] sm:text-[10px] text-white/50 font-bold uppercase tracking-wider">
+                {tech.title}
+              </span>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* 3. Description Section: Progressive Disclosure */}
+        <AnimatePresence>
+          {isExpanded && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: "auto", opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="overflow-hidden border-t border-white/5"
+            >
+              <div className="px-6 sm:px-10 py-10 relative">
+                {/* Vertical Accent Line */}
+                <div className="absolute left-6 sm:left-10 top-12 bottom-12 w-px bg-gradient-to-b from-blue-500/50 via-white/10 to-transparent" />
+                
+                <ul className="space-y-8">
+                  {experience.points?.map((point, i) => (
+                    <li key={i} className="flex gap-6 text-sm sm:text-base text-white/50 leading-relaxed font-medium pl-6 relative">
+                      {/* Technical Node */}
+                      <div className="absolute -left-[19.5px] sm:-left-[23.5px] mt-2 w-2.5 h-2.5 rounded-full bg-[#020617] border-2 border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.6)] z-10" />
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* 4. Tactical Toggle */}
+        <motion.button
+          whileTap={{ scale: 0.98 }}
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="w-full py-6 flex items-center justify-center gap-3 bg-white/[0.02] md:hover:bg-white/[0.05] transition-all duration-300 border-t border-white/5 group/btn"
+        >
+          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 group-hover/btn:text-white transition-colors">
+            {isExpanded ? "Collapse Details" : "Explore Journey"}
+          </span>
+          {isExpanded ? (
+            <ChevronUpIcon className="w-4 h-4 text-blue-500" />
+          ) : (
+            <ChevronDownIcon className="w-4 h-4 text-blue-500" />
+          )}
+        </motion.button>
       </div>
-    </article>
+    </motion.article>
   );
 }
 

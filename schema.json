@@ -41,6 +41,14 @@
         },
         "optional": true
       },
+      "slug": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "inline",
+          "name": "slug"
+        },
+        "optional": true
+      },
       "images": {
         "type": "objectAttribute",
         "value": {
@@ -98,20 +106,6 @@
                 "value": {
                   "type": "inline",
                   "name": "sanity.imageCrop"
-                },
-                "optional": true
-              },
-              "alt": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string"
-                },
-                "optional": true
-              },
-              "caption": {
-                "type": "objectAttribute",
-                "value": {
-                  "type": "string"
                 },
                 "optional": true
               },
@@ -190,6 +184,27 @@
         "optional": true
       },
       "linkToBuild": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "coreTech": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "year": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "number"
+        },
+        "optional": true
+      },
+      "platform": {
         "type": "objectAttribute",
         "value": {
           "type": "string"

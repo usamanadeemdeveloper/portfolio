@@ -11,8 +11,14 @@ export const projects = defineType({
       name: "title",
       title: "Project Title",
       type: "string",
-      validation: (Rule) => Rule.required(),
     },
+
+    {
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+    },
+
     {
       name: "images",
       title: "Project Images",
@@ -23,26 +29,48 @@ export const projects = defineType({
           options: { hotspot: true },
         }),
       ],
-      validation: (Rule) => Rule.min(1).error("Add at least one image"),
     },
+
     {
       name: "summary",
       title: "Project Summary",
       type: "text",
-      validation: (Rule) => Rule.required(),
     },
+
     {
       name: "technologies",
       title: "Technologies Used",
       type: "array",
-      of: [defineArrayMember({ type: "reference", to: { type: "skill" } })],
-      validation: (Rule) => Rule.min(1).error("Select at least one technology"),
+      of: [
+        defineArrayMember({
+          type: "reference",
+          to: { type: "skill" },
+        }),
+      ],
     },
+
     {
       name: "linkToBuild",
       title: "Link to Build",
       type: "url",
-      validation: (Rule) => Rule.uri({ allowRelative: false, scheme: ["http", "https"] }),
     },
-  ],
+
+    {
+      name: "coreTech",
+      title: "Core Tech",
+      type: "string",
+    },
+
+    {
+      name: "year",
+      title: "Year",
+      type: "number",
+    },
+
+    {
+      name: "platform",
+      title: "Platform",
+      type: "string",
+    },
+  ]
 });

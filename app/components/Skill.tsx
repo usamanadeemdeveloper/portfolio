@@ -6,42 +6,50 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 type SkillProps = {
-  directionLeft?: boolean;
   skill: SkillType;
 };
 
-function Skill({ skill, directionLeft }: SkillProps) {
-  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
-
+function Skill({ skill }: SkillProps) {
   return (
-    <motion.div
-      initial={
-        isMobile
-          ? { opacity: 1, x: 0 }
-          : { opacity: 0, x: directionLeft ? -200 : 200 }
-      }
-      transition={{ duration: 0.8 }}
-      whileInView={{ opacity: 1, x: 0 }}
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="group relative cursor-pointer"
+      transition={{ duration: 0.5 }}
+      className="group relative flex flex-col items-center gap-4"
     >
-      <div className="relative w-[80px] sm:w-[100px] md:w-[120px] xl:w-[140px] aspect-square mx-auto min-w-[80px] min-h-[80px]">
+      <motion.div 
+        whileTap={{ scale: 0.95 }}
+        className="relative w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-5 transition-all duration-500 md:group-hover:border-blue-500/50 md:group-hover:bg-blue-500/10 md:group-hover:-translate-y-2 shadow-lg"
+      >
         {skill.image && (
           <Image
             src={urlFor(skill.image).url()}
-            alt={`${skill.title} Logo`}
+            alt={skill.title || "Skill"}
             fill
-            className="rounded-full border border-gray-500 object-cover transition duration-300 ease-in-out group-hover:grayscale"
-            sizes="(max-width: 768px) 80px, (max-width: 1024px) 100px, 120px"
+            className="object-contain p-4 sm:p-5 grayscale-0 md:grayscale md:group-hover:grayscale-0 transition-all duration-700"
           />
         )}
-
-        <div className="absolute inset-0 flex items-center justify-center rounded-full opacity-0 transition duration-300 ease-in-out group-hover:opacity-90 group-hover:bg-white">
-          <p className="text-xs sm:text-sm md:text-lg font-bold text-black">
-            {skill.progress}%
-          </p>
+        {/* Subtle persistent shine for mobile depth */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent rounded-2xl pointer-events-none" />
+      </motion.div>
+      
+      <p className="text-[9px] sm:text-[10px] md:text-xs font-bold text-white/40 md:group-hover:text-blue-400 transition-colors duration-300 tracking-[0.2em] uppercase text-center">
+        {skill.title}
+      </p>
+      
+      {/* Progress indicator - made more visible for mobile */}
+      {skill.progress !== undefined && (
+        <div className="w-6 h-[2px] bg-white/10 rounded-full overflow-hidden">
+          <motion.div 
+            initial={{ width: 0 }}
+            whileInView={{ width: `${skill.progress}%` }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.5, delay: 0.2 }}
+            className="h-full bg-blue-500/60"
+          />
         </div>
-      </div>
+      )}
     </motion.div>
   );
 }

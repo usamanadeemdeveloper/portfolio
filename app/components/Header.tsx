@@ -35,7 +35,7 @@ function Header({ socials }: HeaderProps) {
         className="flex flex-row items-center cursor-pointer"
       >
         <Link
-          href="#contact"
+          href="/#contact"
           className="cursor-pointer"
           aria-label="Get in touch via email"
         >
