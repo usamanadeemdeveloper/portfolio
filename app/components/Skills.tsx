@@ -26,7 +26,7 @@ function Skills({ skills }: SkillsProps) {
         </p>
       </div>
 
-      <div className="grid grid-cols-3 md:grid-cols-4 gap-4 md:gap-6 justify-items-center items-center">
+      <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 md:gap-6 justify-items-center items-center">
         {skills.map((skill, index) => (
           <Skill
             key={skill._id}
