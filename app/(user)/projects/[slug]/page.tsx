@@ -160,7 +160,7 @@ export default async function ProjectPage({ params }: Props) {
           <div className="lg:col-span-2 space-y-10">
             <div className="space-y-6">
               <h2 className="text-3xl sm:text-5xl font-bold text-white tracking-tight">
-                The Challenge & Solution
+                About the Project
               </h2>
               <div className="h-1 w-20 bg-blue-500 rounded-full" />
             </div>
