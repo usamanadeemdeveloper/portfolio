@@ -8,6 +8,7 @@ const PROJECT_BY_SLUG_QUERY = defineQuery(`
     slug,
     summary,
     linkToBuild,
+    seoDescription,
     images,
     coreTech,
     year,

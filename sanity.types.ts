@@ -35,6 +35,7 @@ export type Projects = {
     _key: string;
   }>;
   summary?: string;
+  seoDescription?: string;
   technologies?: Array<{
     _ref: string;
     _type: "reference";
@@ -370,13 +371,14 @@ export type GetPageInfoResult = {
 
 // Source: sanity/lib/getProjectBySlug.ts
 // Variable: PROJECT_BY_SLUG_QUERY
-// Query: *[_type == "projects" && slug.current == $slug][0] {    _id,    title,    slug,    summary,    linkToBuild,    images,    coreTech,    year,    platform,    technologies[]->{      _id,      title,      image    }  }
+// Query: *[_type == "projects" && slug.current == $slug][0] {    _id,    title,    slug,    summary,    linkToBuild,    seoDescription,    images,    coreTech,    year,    platform,    technologies[]->{      _id,      title,      image    }  }
 export type PROJECT_BY_SLUG_QUERYResult = {
   _id: string;
   title: string | null;
   slug: Slug | null;
   summary: string | null;
   linkToBuild: string | null;
+  seoDescription: string | null;
   images: Array<{
     asset?: {
       _ref: string;
@@ -495,7 +497,7 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "\n  *[_type == \"experience\"] | order(\n    isCurrentlyWorkingHere desc, \n    dateEnded desc, \n    dateStarted desc\n  ) {\n    _id,\n    jobTitle,\n    companyName,\n    companyImage,\n    dateStarted,\n    dateEnded,\n    isCurrentlyWorkingHere,\n    points,\n    technologies[]->{\n      _id,\n      image,\n      title,\n      progress,\n    }\n  }\n": EXPERIENCE_QUERYResult;
     "*[_type == \"pageInfo\"][0]": GetPageInfoResult;
-    "\n  *[_type == \"projects\" && slug.current == $slug][0] {\n    _id,\n    title,\n    slug,\n    summary,\n    linkToBuild,\n    images,\n    coreTech,\n    year,\n    platform,\n    technologies[]->{\n      _id,\n      title,\n      image\n    }\n  }\n": PROJECT_BY_SLUG_QUERYResult;
+    "\n  *[_type == \"projects\" && slug.current == $slug][0] {\n    _id,\n    title,\n    slug,\n    summary,\n    linkToBuild,\n    seoDescription,\n    images,\n    coreTech,\n    year,\n    platform,\n    technologies[]->{\n      _id,\n      title,\n      image\n    }\n  }\n": PROJECT_BY_SLUG_QUERYResult;
     "\n  *[_type == \"projects\"] {\n    _id,\n    title,\n    slug,\n    summary,\n    linkToBuild,\n    images,\n    technologies[]->{\n      _id,\n      title,\n      image\n    }\n  }\n": PROJECTS_QUERYResult;
     "*[_type == \"skill\"]": GetSkillsResult;
     "*[_type == \"social\"]": GetSocialsResult;

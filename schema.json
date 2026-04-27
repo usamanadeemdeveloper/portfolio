@@ -139,6 +139,13 @@
         },
         "optional": true
       },
+      "seoDescription": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
       "technologies": {
         "type": "objectAttribute",
         "value": {

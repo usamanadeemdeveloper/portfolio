@@ -17,15 +17,27 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const project = await getProjectBySlug(slug);
 
-  if (!project) {
-    return {
-      title: "Project Not Found",
-    };
+  if (!project?.title) {
+    return { title: "Project Not Found" };
   }
 
   return {
-    title: `${project.title} | Usama Nadeem`,
-    description: project.summary,
+    title: project.title,
+    description: project.seoDescription,
+    openGraph: {
+      title: project.title,
+      description: project.seoDescription ?? "No description available",
+      images: project.images?.[0]
+        ? [{ url: urlFor(project.images[0]).url() }]
+        : [],
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: project.title,
+      description: project.seoDescription ?? "No description available",
+      images: project.images?.[0] ? [urlFor(project.images[0]).url()] : [],
+    },
   };
 }
 

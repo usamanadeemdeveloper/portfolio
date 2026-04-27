@@ -38,6 +38,13 @@ export const projects = defineType({
     },
 
     {
+      name: "seoDescription",
+      title: "SEO Description",
+      type: "string",
+      description: "Plain text only, no markdown. Used for Google and social previews. Keep it under 160 characters.",
+    },
+
+    {
       name: "technologies",
       title: "Technologies Used",
       type: "array",
