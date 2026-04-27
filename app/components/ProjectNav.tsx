@@ -1,9 +1,9 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/16/solid";
 
 interface ProjectNavProps {
-  onPrev: () => void;
-  onNext: () => void;
-  className?: string; // Add this to allow custom positioning
+  onPrev: (e?: React.MouseEvent) => void;
+  onNext: (e?: React.MouseEvent) => void;
+  className?: string;
 }
 
 function ProjectNav({ onPrev, onNext, className = "" }: ProjectNavProps) {
@@ -12,7 +12,7 @@ function ProjectNav({ onPrev, onNext, className = "" }: ProjectNavProps) {
       className={`absolute inset-0 pointer-events-none flex items-center justify-between z-30 ${className}`}
     >
       <button
-        onClick={onPrev}
+        onClick={(e) => onPrev(e)}
         aria-label="Previous item"
         className="p-2 sm:p-3 rounded-full cursor-pointer bg-black/60 hover:bg-blue-600 text-white transition pointer-events-auto ml-2 sm:ml-4 border border-white/10"
       >
@@ -22,7 +22,7 @@ function ProjectNav({ onPrev, onNext, className = "" }: ProjectNavProps) {
         />
       </button>
       <button
-        onClick={onNext}
+        onClick={(e) => onNext(e)}
         aria-label="Next item"
         className="p-2 sm:p-3 rounded-full cursor-pointer bg-black/60 hover:bg-blue-600 text-white transition pointer-events-auto mr-2 sm:mr-4 border border-white/10"
       >

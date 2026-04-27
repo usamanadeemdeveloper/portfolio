@@ -128,9 +128,19 @@ function ProjectCard({ project, index, cardsPerView }: ProjectCardProps) {
 
               {/* ACTIONS */}
               <div className="mt-auto flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 sm:gap-6">
-                <span className="text-white/30 text-[10px] font-bold uppercase tracking-[0.2em] border-b border-white/10 pb-1.5 md:group-hover:text-blue-400 md:group-hover:border-blue-400 transition-all duration-300 w-fit">
-                  View Full Case Study
-                </span>
+                <div className="flex items-center gap-2 group/btn">
+                  <span className="text-white/30 text-[10px] font-bold uppercase tracking-[0.2em] border-b border-white/10 pb-1.5 md:group-hover:text-blue-400 md:group-hover:border-blue-400 transition-all duration-300 w-fit">
+                    View Full Case Study
+                  </span>
+                  <svg 
+                    className="w-4 h-4 text-white/20 group-hover:translate-x-1 group-hover:text-blue-400 transition-all duration-300 -mt-1"
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </div>
 
                 {/* LIVE PREVIEW (FIXED) */}
                 {project.linkToBuild && (
