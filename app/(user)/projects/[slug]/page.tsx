@@ -7,6 +7,7 @@ import { urlFor } from "@/sanity/lib/image";
 import getProjectBySlug from "@/sanity/lib/getProjectBySlug";
 import Header from "@/app/components/Header";
 import getSocials from "@/sanity/lib/getSocials";
+import MarkdownContent from "@/app/components/MarkdownContent";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -40,10 +41,10 @@ export default async function ProjectPage({ params }: Props) {
   }
 
   return (
-  <main className="bg-background text-foreground min-h-screen snap-y snap-mandatory overflow-y-scroll overflow-x-hidden z-0 scroll-smooth scrollbar-thin scrollbar-track-slate-900/20 scrollbar-thumb-blue-500/20 hover:scrollbar-thumb-blue-500/40">
-    <Header socials={socials} />
+    <main className="bg-background text-foreground min-h-screen snap-y snap-mandatory overflow-y-scroll overflow-x-hidden z-0 scroll-smooth scrollbar-thin scrollbar-track-slate-900/20 scrollbar-thumb-blue-500/20 hover:scrollbar-thumb-blue-500/40">
+      <Header socials={socials} />
 
-    <div className="max-w-7xl mx-auto px-6 md:px-10 pt-32 sm:pt-40">
+      <div className="max-w-7xl mx-auto px-6 md:px-10 pt-32 sm:pt-40">
         {/* Back Link */}
         <Link
           href="/#projects"
@@ -118,17 +119,15 @@ export default async function ProjectPage({ params }: Props) {
         <div className="grid lg:grid-cols-3 gap-16 md:gap-24">
           <div className="lg:col-span-2 space-y-10">
             <div className="space-y-6">
-              <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+              <h2 className="text-3xl sm:text-5xl font-bold text-white tracking-tight">
                 The Challenge & Solution
               </h2>
               <div className="h-1 w-20 bg-blue-500 rounded-full" />
             </div>
-            <p className="text-white/60 text-lg sm:text-xl leading-relaxed font-medium whitespace-pre-line">
-              {project.summary}
-            </p>
+            <MarkdownContent content={project.summary ?? ""} />
           </div>
 
-          <div className="lg:col-span-1 space-y-12">
+          <div className="lg:col-span-1 space-y-12 lg:border-l lg:border-white/5 lg:pl-12">
             {project.linkToBuild && (
               <div className="space-y-6">
                 <h3 className="text-sm font-bold text-white/30 uppercase tracking-[0.2em]">
