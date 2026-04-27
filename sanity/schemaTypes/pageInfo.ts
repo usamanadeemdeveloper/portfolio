@@ -60,5 +60,11 @@ export const pageInfo = defineType({
       type: "array",
       of: [defineArrayMember({ type: "reference", to: { type: "social" } })],
     },
+    {
+      name: "heroTypewriterWords",
+      title: "Hero Typewriter Words",
+      type: "array",
+      of: [{ type: "string" }],
+    },
   ],
 });

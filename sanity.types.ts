@@ -157,6 +157,7 @@ export type PageInfo = {
     _key: string;
     [internalGroqTypeReferenceTo]?: "social";
   }>;
+  heroTypewriterWords?: Array<string>;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -367,6 +368,7 @@ export type GetPageInfoResult = {
     _key: string;
     [internalGroqTypeReferenceTo]?: "social";
   }>;
+  heroTypewriterWords?: Array<string>;
 } | null;
 
 // Source: sanity/lib/getProjectBySlug.ts

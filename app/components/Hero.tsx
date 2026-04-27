@@ -17,13 +17,7 @@ type HeroProps = {
 
 function Hero({ pageInfo }: HeroProps) {
   const [text] = useTypewriter({
-    words: [
-      `Hi, The Name's ${pageInfo?.name}`,
-      "Full-Stack Developer",
-      "MERN Stack Developer",
-      "MEAN Stack Developer",
-      "Performance Optimizer",
-    ],
+    words: pageInfo?.heroTypewriterWords || [],
     loop: true,
     delaySpeed: 2000,
   });
