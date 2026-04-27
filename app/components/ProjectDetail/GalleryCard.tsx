@@ -63,7 +63,7 @@ export default function GalleryCard({ project }: Props) {
         </h3>
 
         <div className="bg-white/[0.02] border border-white/5 rounded-3xl p-6">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4">
             {displayedImages.map((img, index) => {
               const imageUrl = urlFor(img).url();
               const isLast = index === 3 && remainingCount > 0;
@@ -72,7 +72,7 @@ export default function GalleryCard({ project }: Props) {
                 <button
                   key={index}
                   onClick={() => setActiveImageIndex(index)}
-                  className="relative aspect-square rounded-2xl overflow-hidden border border-white/5 cursor-pointer group outline-none focus:ring-2 focus:ring-blue-500/50"
+                  className="relative aspect-video rounded-2xl overflow-hidden border border-white/5 cursor-pointer group outline-none focus:ring-2 focus:ring-blue-500/50"
                   aria-label={`View ${project.title} gallery image ${index + 1}`}
                 >
                   <Image
