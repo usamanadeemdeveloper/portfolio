@@ -24,23 +24,38 @@ export default async function Home() {
         <Hero pageInfo={pageInfo} />
       </section>
 
-      <section id="about" className="snap-center min-h-screen flex items-center">
+      <section
+        id="about"
+        className="snap-center min-h-screen flex items-center"
+      >
         <About pageInfo={pageInfo} />
       </section>
 
-      <section id="experience" className="snap-center min-h-screen flex items-center">
+      <section
+        id="experience"
+        className="snap-center min-h-screen flex items-center"
+      >
         <WorkExperience experiences={experiences} />
       </section>
 
-      <section id="skills" className="snap-center min-h-screen flex items-center">
+      <section
+        id="skills"
+        className="snap-center min-h-screen flex items-center"
+      >
         <Skills skills={skills} />
       </section>
 
-      <section id="projects" className="snap-start min-h-screen flex items-center">
+      <section
+        id="projects"
+        className="snap-start min-h-screen flex items-center"
+      >
         <Projects projects={projects} />
       </section>
 
-      <section id="contact" className="snap-start min-h-screen flex items-center">
+      <section
+        id="contact"
+        className="snap-start min-h-screen flex items-center"
+      >
         <ContactMe />
       </section>
 

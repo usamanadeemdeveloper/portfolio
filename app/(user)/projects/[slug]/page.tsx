@@ -23,24 +23,30 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: project.title,
-    description: project.seoDescription,
+    description: project.seoDescription || "No description available",
+
+    alternates: {
+      canonical: `https://usamanadeem.vercel.app/projects/${slug}`,
+    },
+
     openGraph: {
       title: project.title,
-      description: project.seoDescription ?? "No description available",
+      description: project.seoDescription || "No description available",
+      type: "article",
+      url: `https://usamanadeem.vercel.app/projects/${slug}`,
       images: project.images?.[0]
         ? [{ url: urlFor(project.images[0]).url() }]
         : [],
-      type: "article",
     },
+
     twitter: {
       card: "summary_large_image",
       title: project.title,
-      description: project.seoDescription ?? "No description available",
+      description: project.seoDescription || "No description available",
       images: project.images?.[0] ? [urlFor(project.images[0]).url()] : [],
     },
   };
 }
-
 export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
   const [project, socials] = await Promise.all([
@@ -54,6 +60,24 @@ export default async function ProjectPage({ params }: Props) {
 
   return (
     <main className="bg-background text-foreground min-h-screen snap-y snap-mandatory overflow-y-scroll overflow-x-hidden z-0 scroll-smooth scrollbar-thin scrollbar-track-slate-900/20 scrollbar-thumb-blue-500/20 hover:scrollbar-thumb-blue-500/40">
+      {/* SEO STRUCTURED DATA (NO UI IMPACT) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareSourceCode",
+            name: project.title,
+            description: project.seoDescription || "No description available",
+            url: `https://usamanadeem.vercel.app/projects/${slug}`,
+            author: {
+              "@type": "Person",
+              name: "Usama Nadeem",
+            },
+            keywords: project.technologies?.map((t) => t.title).join(", "),
+          }),
+        }}
+      />
       <Header socials={socials} />
 
       <div className="max-w-7xl mx-auto px-6 md:px-10 pt-32 sm:pt-40">
@@ -66,7 +90,7 @@ export default async function ProjectPage({ params }: Props) {
             <ArrowLeftIcon className="w-4 h-4" />
           </div>
           <span className="text-[10px] font-bold uppercase tracking-[0.2em]">
-            Back to Work
+            Back to Projects
           </span>
         </Link>
 
@@ -78,9 +102,13 @@ export default async function ProjectPage({ params }: Props) {
             </span>
             <div className="h-px flex-1 bg-white/5" />
           </div>
-          <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold text-gradient leading-[1.1] mb-8 tracking-tighter">
+          <h1 className="text-4xl sm:text-6xl font-bold mb-6">
             {project.title}
           </h1>
+
+          <p className="text-white/60 max-w-3xl mb-10 leading-relaxed">
+            {project.seoDescription || "No description available"}
+          </p>
 
           <div className="flex flex-wrap gap-3">
             {project.technologies?.map((tech) => (
