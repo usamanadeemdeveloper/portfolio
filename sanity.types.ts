@@ -150,6 +150,15 @@ export type PageInfo = {
   phoneNumber?: string;
   email?: string;
   address?: string;
+  availability?: string;
+  experienceYears?: string;
+  experienceLabel?: string;
+  contributionTitle?: string;
+  contributionLabel?: string;
+  aboutQuote?: string;
+  contactQuote?: string;
+  responseTime?: string;
+  canonicalUrl?: string;
   socials?: Array<{
     _ref: string;
     _type: "reference";
@@ -361,6 +370,15 @@ export type GetPageInfoResult = {
   phoneNumber?: string;
   email?: string;
   address?: string;
+  availability?: string;
+  experienceYears?: string;
+  experienceLabel?: string;
+  contributionTitle?: string;
+  contributionLabel?: string;
+  aboutQuote?: string;
+  contactQuote?: string;
+  responseTime?: string;
+  canonicalUrl?: string;
   socials?: Array<{
     _ref: string;
     _type: "reference";

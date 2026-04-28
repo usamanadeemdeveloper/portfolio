@@ -40,8 +40,6 @@ export const pageInfo = defineType({
       name: "phoneNumber",
       title: "Phone Number",
       type: "string",
-      validation: (Rule) =>
-        Rule.min(7).max(15).error("Phone number must be valid length"),
     },
     {
       name: "email",
@@ -53,6 +51,60 @@ export const pageInfo = defineType({
       name: "address",
       title: "Address",
       type: "string",
+    },
+    {
+      name: "availability",
+      title: "Availability Status",
+      type: "string",
+      description: "e.g. Open for Projects",
+    },
+    {
+      name: "experienceYears",
+      title: "Experience Years",
+      type: "string",
+      description: "e.g. 3+",
+    },
+    {
+      name: "experienceLabel",
+      title: "Experience Label",
+      type: "string",
+      description: "e.g. Years Experience",
+    },
+    {
+      name: "contributionTitle",
+      title: "Contribution Title",
+      type: "string",
+      description: "e.g. Web",
+    },
+    {
+      name: "contributionLabel",
+      title: "Contribution Label",
+      type: "string",
+      description: "e.g. Standards Contributor",
+    },
+    {
+      name: "aboutQuote",
+      title: "About Quote",
+      type: "string",
+      description: "e.g. Designing and building tomorrow's digital landscape.",
+    },
+    {
+      name: "contactQuote",
+      title: "Contact Quote",
+      type: "string",
+      description: "e.g. Driven by precision, built with passion.",
+    },
+    {
+      name: "responseTime",
+      title: "Response Time",
+      type: "string",
+      description: "e.g. Typically responds within 24 hours",
+    },
+    {
+      name: "canonicalUrl",
+      title: "Canonical URL",
+      type: "url",
+      description: "The base URL of the live site (e.g. https://yourname.vercel.app)",
     },
     {
       name: "socials",

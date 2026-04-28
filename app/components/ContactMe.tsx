@@ -3,6 +3,7 @@
 import { EnvelopeIcon, MapPinIcon, PhoneIcon } from "@heroicons/react/16/solid";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { motion } from "framer-motion";
+import { GetPageInfoResult } from "@/sanity.types";
 
 type Inputs = {
   name: string;
@@ -11,10 +12,14 @@ type Inputs = {
   message: string;
 };
 
-function ContactMe() {
+type ContactMeProps = {
+  pageInfo: GetPageInfoResult;
+};
+
+function ContactMe({ pageInfo }: ContactMeProps) {
   const { register, handleSubmit } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (formData) => {
-    window.location.href = `mailto:usamanadeemparacha@gmail.com?subject=${formData.subject}&body=Hi, my name is ${formData.name}. ${formData.message} (${formData.email})`;
+    window.location.href = `mailto:${pageInfo?.email}?subject=${formData.subject}&body=Hi, my name is ${formData.name}. ${formData.message} (${formData.email})`;
   };
 
   return (
@@ -34,7 +39,7 @@ function ContactMe() {
             viewport={{ once: true }}
             className="uppercase tracking-[0.4em] md:tracking-[0.6em] text-white/20 text-[10px] md:text-xs font-bold mb-4"
           >
-            Availability: Open for Projects
+            Availability: {pageInfo?.availability}
           </motion.h3>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -59,19 +64,19 @@ function ContactMe() {
                 {
                   icon: PhoneIcon,
                   label: "Call",
-                  value: "+92 336 8507047",
+                  value: pageInfo?.phoneNumber,
                   color: "bg-blue-500",
                 },
                 {
                   icon: EnvelopeIcon,
                   label: "Email",
-                  value: "usamanadeemparacha@gmail.com",
+                  value: pageInfo?.email,
                   color: "bg-cyan-500",
                 },
                 {
                   icon: MapPinIcon,
                   label: "Location",
-                  value: "Karachi, Pakistan",
+                  value: pageInfo?.address,
                   color: "bg-blue-600",
                 },
               ].map((item, i) => (
@@ -111,9 +116,7 @@ function ContactMe() {
             {/* Social Signal */}
             <div className="glass p-6 md:p-8 rounded-[1.5rem] border-dashed border-white/5 bg-white/[0.01]">
               <p className="text-white/40 text-xs md:text-sm leading-relaxed italic">
-                {
-                  "Driven by precision, built with passion. I'm currently looking for new opportunities to solve complex problems."
-                }
+                {pageInfo?.contactQuote}
               </p>
             </div>
           </div>
@@ -179,7 +182,7 @@ function ContactMe() {
               </motion.button>
 
               <p className="md:col-span-2 text-center text-[10px] text-white/20 font-bold uppercase tracking-widest pt-2">
-                Typically responds within 24 hours
+                {pageInfo?.responseTime}
               </p>
             </form>
           </motion.div>

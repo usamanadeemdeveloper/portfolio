@@ -56,7 +56,7 @@ export default async function Home() {
         id="contact"
         className="snap-start min-h-screen flex items-center"
       >
-        <ContactMe />
+        <ContactMe pageInfo={pageInfo} />
       </section>
 
       <footer className="sticky bottom-8 w-full z-30 pointer-events-none">

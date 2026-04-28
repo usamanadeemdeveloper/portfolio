@@ -30,7 +30,7 @@ function Hero({ pageInfo }: HeroProps) {
         <Image
           className="relative rounded-full mx-auto object-cover border-4 border-primary"
           src={urlFor(pageInfo.heroImage).url()}
-          alt="Profile image of Usama Nadeem"
+          alt={`Profile image of ${pageInfo?.name}`}
           fetchPriority="high"
           height={128}
           width={128}

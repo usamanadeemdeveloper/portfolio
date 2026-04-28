@@ -76,7 +76,15 @@ function About({ pageInfo }: AboutProps) {
         >
           <div className="space-y-6">
             <h4 className="text-2xl md:text-4xl font-bold text-white leading-tight">
-              Designing and building <span className="text-blue-500/80">{`tomorrow's`}</span> digital landscape.
+              {pageInfo?.aboutQuote?.split("*").map((part, i) =>
+                i % 2 === 1 ? (
+                  <span key={i} className="text-blue-500/80">
+                    {part}
+                  </span>
+                ) : (
+                  part
+                )
+              )}
             </h4>
             <div className="h-1 w-20 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full" />
           </div>
@@ -90,15 +98,23 @@ function About({ pageInfo }: AboutProps) {
               whileTap={{ scale: 0.95 }}
               className="bg-white/[0.03] backdrop-blur-xl border border-white/5 p-6 rounded-3xl group/stat md:hover:border-blue-500/30 transition-colors"
             >
-              <p className="text-blue-500 font-bold text-3xl md:text-4xl mb-1 md:group-hover/stat:scale-110 transition-transform origin-left">3+</p>
-              <p className="text-white/30 text-[10px] uppercase tracking-widest font-bold">Years Experience</p>
+              <p className="text-blue-500 font-bold text-3xl md:text-4xl mb-1 md:group-hover/stat:scale-110 transition-transform origin-left">
+                {pageInfo?.experienceYears}
+              </p>
+              <p className="text-white/30 text-[10px] uppercase tracking-widest font-bold">
+                {pageInfo?.experienceLabel}
+              </p>
             </motion.div>
             <motion.div 
               whileTap={{ scale: 0.95 }}
               className="bg-white/[0.03] backdrop-blur-xl border border-white/5 p-6 rounded-3xl group/stat md:hover:border-blue-500/30 transition-colors"
             >
-              <p className="text-blue-500 font-bold text-3xl md:text-4xl mb-1 md:group-hover/stat:scale-110 transition-transform origin-left">Web</p>
-              <p className="text-white/30 text-[10px] uppercase tracking-widest font-bold">Standards Contributor</p>
+              <p className="text-blue-500 font-bold text-3xl md:text-4xl mb-1 md:group-hover/stat:scale-110 transition-transform origin-left">
+                {pageInfo?.contributionTitle}
+              </p>
+              <p className="text-white/30 text-[10px] uppercase tracking-widest font-bold">
+                {pageInfo?.contributionLabel}
+              </p>
             </motion.div>
           </div>
         </motion.div>

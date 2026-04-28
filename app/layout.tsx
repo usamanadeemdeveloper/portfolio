@@ -1,3 +1,4 @@
+import getPageInfo from "@/sanity/lib/getPageInfo";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -13,14 +14,21 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Usama Nadeem",
-  description: "Personal website of Usama Nadeem",
-  manifest: "/manifest.json",
-  icons: {
-    icon: "/favicon.ico",
-  }
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const pageInfo = await getPageInfo();
+
+  return {
+    title: pageInfo?.name,
+    description: pageInfo?.backgroundInformation,
+    manifest: "/manifest.json",
+    icons: {
+      icon: "/favicon.ico",
+    },
+    alternates: {
+      canonical: pageInfo?.canonicalUrl,
+    },
+  };
+}
 
 export default function RootLayout({
   children,
