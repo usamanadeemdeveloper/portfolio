@@ -37,7 +37,7 @@ function About({ pageInfo }: AboutProps) {
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.1 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-white via-white to-white/40"
+          className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-br from-white via-white to-white/40 pb-2"
         >
           The Story <span className="text-blue-500/80">Behind the Code</span>
         </motion.h2>
