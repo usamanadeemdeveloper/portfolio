@@ -48,7 +48,7 @@ export default function GalleryCard({ project }: Props) {
 
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [activeImageIndex, project.images]);
+  }, [activeImageIndex, project.images, handleNext, handlePrev]);
 
   if (!project.images?.length) return null;
 
