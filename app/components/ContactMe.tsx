@@ -115,7 +115,7 @@ function ContactMe({ pageInfo }: ContactMeProps) {
 
             {/* Social Signal */}
             <div className="glass p-6 md:p-8 rounded-[1.5rem] border-dashed border-white/5 bg-white/[0.01]">
-              <p className="text-white/40 text-xs md:text-sm leading-relaxed italic">
+              <p className="text-white/70 text-xs md:text-sm leading-relaxed italic">
                 {pageInfo?.contactQuote}
               </p>
             </div>
