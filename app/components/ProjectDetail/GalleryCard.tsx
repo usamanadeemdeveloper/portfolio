@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -24,19 +24,19 @@ export default function GalleryCard({ project }: Props) {
     }
   }, [activeImageIndex]);
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     if (activeImageIndex === null || !project.images) return;
     setActiveImageIndex((prev) =>
       prev! < project.images!.length - 1 ? prev! + 1 : 0,
     );
-  };
+  }, [activeImageIndex, project.images]);
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     if (activeImageIndex === null || !project.images) return;
     setActiveImageIndex((prev) =>
       prev! > 0 ? prev! - 1 : project.images!.length - 1,
     );
-  };
+  }, [activeImageIndex, project.images]);
 
   // Keyboard navigation
   useEffect(() => {
