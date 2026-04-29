@@ -13,6 +13,6 @@ export const { sanityFetch, SanityLive } = defineLive({
   client,
   serverToken: token,
   fetchOptions: {
-    revalidate: 0,
+    revalidate: 3600,
   },
 });

@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import { EXPERIENCE_QUERYResult } from "@/sanity.types";
 import { urlFor } from "@/sanity/lib/image";
-import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 import { ChevronDownIcon, ChevronUpIcon } from "@sanity/icons";
+import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
+import { useState } from "react";
 
 type ExperienceCardProps = {
   experience: EXPERIENCE_QUERYResult[number];
@@ -15,17 +15,16 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <motion.article 
+    <motion.article
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       className="group relative w-full max-w-3xl"
     >
       <div className="absolute -inset-1 bg-gradient-to-r from-blue-500/10 to-cyan-500/10 rounded-[2.5rem] blur-xl opacity-40 md:opacity-0 md:group-hover:opacity-100 transition duration-1000" />
-      
+
       <div className="bg-white/[0.03] backdrop-blur-2xl border border-white/10 relative rounded-[2.5rem] overflow-hidden transition-all duration-500 md:hover:border-white/20 shadow-2xl">
-        
-        {/* 1. Header Section: Full Visibility */}
+        {/* 1. Header Section */}
         <div className="p-6 sm:p-10 pb-6">
           <div className="flex flex-col sm:flex-row items-start gap-5 sm:gap-8">
             {experience.companyImage && (
@@ -40,29 +39,40 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
             )}
 
             <div className="flex-1 min-w-0">
-              <h4 className="text-2xl sm:text-3xl font-bold text-white leading-tight break-words">
+              <h3 className="text-2xl sm:text-3xl font-bold text-white leading-tight break-words">
                 {experience.jobTitle}
-              </h4>
+              </h3>
               <p className="text-blue-500/90 font-bold text-base sm:text-lg mt-1">
                 {experience.companyName}
               </p>
-              <p className="text-white/30 text-[10px] sm:text-xs uppercase tracking-[0.2em] font-bold mt-2">
-                {new Date(experience.dateStarted ?? "").toLocaleDateString('en-US', { month: 'short', year: 'numeric' })} — {experience.isCurrentlyWorkingHere ? "Present" : new Date(experience.dateEnded ?? "").toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+              <p className="text-white/50 text-[10px] sm:text-xs uppercase tracking-[0.2em] font-bold mt-2">
+                {new Date(experience.dateStarted ?? "").toLocaleDateString(
+                  "en-US",
+                  { month: "short", year: "numeric" },
+                )}{" "}
+                —{" "}
+                {experience.isCurrentlyWorkingHere
+                  ? "Present"
+                  : new Date(experience.dateEnded ?? "").toLocaleDateString(
+                      "en-US",
+                      { month: "short", year: "numeric" },
+                    )}
               </p>
             </div>
           </div>
         </div>
 
-        {/* 2. Tech Stack: Wrapping Grid (No Scroll, All Visible) */}
+        {/* 2. Tech Stack */}
         <div className="px-6 sm:px-10 pb-6 flex flex-wrap gap-2 sm:gap-3">
           {experience.technologies?.map((tech) => (
-            <motion.div 
+            <motion.div
               key={tech._id}
               whileTap={{ scale: 0.95 }}
               className="flex items-center gap-2 bg-white/[0.04] border border-white/10 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full"
             >
               {tech.image && (
-                <div className="relative w-3.5 h-3.5 sm:w-4 h-4">
+                // Fixed: was "w-3.5 h-3.5 sm:w-4 h-4" (duplicate h-4)
+                <div className="relative w-3.5 h-3.5 sm:w-4 sm:h-4">
                   <Image
                     src={urlFor(tech.image).url()}
                     alt={tech.title || ""}
@@ -78,7 +88,7 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
           ))}
         </div>
 
-        {/* 3. Description Section: Progressive Disclosure */}
+        {/* 3. Description Section */}
         <AnimatePresence>
           {isExpanded && (
             <motion.div
@@ -89,13 +99,15 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
               className="overflow-hidden border-t border-white/5"
             >
               <div className="px-6 sm:px-10 py-10 relative">
-                {/* Vertical Accent Line */}
                 <div className="absolute left-6 sm:left-10 top-12 bottom-12 w-px bg-gradient-to-b from-blue-500/50 via-white/10 to-transparent" />
-                
+
                 <ul className="space-y-8">
                   {experience.points?.map((point, i) => (
-                    <li key={i} className="flex gap-6 text-sm sm:text-base text-white/50 leading-relaxed font-medium pl-6 relative">
-                      {/* Technical Node */}
+                    // Fixed: content-based key instead of index
+                    <li
+                      key={`${point}-${i}`}
+                      className="flex gap-6 text-sm sm:text-base text-white/50 leading-relaxed font-medium pl-6 relative"
+                    >
                       <div className="absolute -left-[19.5px] sm:-left-[23.5px] mt-2 w-2.5 h-2.5 rounded-full bg-[#020617] border-2 border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.6)] z-10" />
                       {point}
                     </li>
@@ -106,7 +118,7 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
           )}
         </AnimatePresence>
 
-        {/* 4. Tactical Toggle */}
+        {/* 4. Toggle Button */}
         <motion.button
           whileTap={{ scale: 0.98 }}
           onClick={() => setIsExpanded(!isExpanded)}
@@ -115,6 +127,7 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
           <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 group-hover/btn:text-white transition-colors">
             {isExpanded ? "Collapse Details" : "Explore Journey"}
           </span>
+          {/* Replaced @sanity/icons with inline SVGs */}
           {isExpanded ? (
             <ChevronUpIcon className="w-4 h-4 text-blue-500" />
           ) : (

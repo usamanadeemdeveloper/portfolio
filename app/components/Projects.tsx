@@ -40,7 +40,7 @@ function Projects({ projects }: ProjectsProps) {
     [cardsPerView],
   );
 
-  const handleScroll = () => {
+  const handleScroll = useCallback(() => {
     if (!scrollRef.current) return;
     const container = scrollRef.current;
     const scrollPos = container.scrollLeft;
@@ -54,7 +54,7 @@ function Projects({ projects }: ProjectsProps) {
     ) {
       setCurrentIndex(newIndex);
     }
-  };
+  }, [currentIndex, cardsPerView, projects.length]);
 
   // Auto-scroll logic
   useEffect(() => {
@@ -98,15 +98,15 @@ function Projects({ projects }: ProjectsProps) {
       </div>
 
       <div className="mb-24 text-center w-full px-4">
-        <motion.h3
+        <motion.p
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="uppercase tracking-[0.5em] text-white/30 text-[10px] md:text-xs font-bold mb-3"
+          className="uppercase tracking-[0.5em] text-white/50 text-[10px] md:text-xs font-bold mb-3"
         >
           Portfolio
-        </motion.h3>
+        </motion.p>
         <motion.h2
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
@@ -138,10 +138,11 @@ function Projects({ projects }: ProjectsProps) {
       </div>
 
       <div className="flex justify-center gap-3 mt-12 z-20">
-        {projects.map((_, i) => (
+        {projects.map((project, i) => (
           <button
-            key={i}
+            key={project._id}
             onClick={() => scrollToProject(i)}
+            aria-label={`Go to project ${i + 1}`}
             className={`h-1 rounded-full transition-all duration-500 cursor-pointer ${
               i === currentIndex
                 ? "w-10 bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.6)]"

@@ -23,16 +23,16 @@ function Skills({ skills }: SkillsProps) {
       </div>
 
       <div className="mb-24 text-center w-full">
-        <motion.h3 
+        <motion.p
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="uppercase tracking-[0.5em] text-white/30 text-[10px] md:text-xs font-bold mb-3"
+          className="uppercase tracking-[0.5em] text-white/50 text-[10px] md:text-xs font-bold mb-3"
         >
           Expertise
-        </motion.h3>
-        <motion.h2 
+        </motion.p>
+        <motion.h2
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.1 }}
@@ -49,7 +49,11 @@ function Skills({ skills }: SkillsProps) {
             key={skill._id}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: index * 0.05, ease: [0.16, 1, 0.3, 1] }}
+            transition={{
+              duration: 0.6,
+              delay: index * 0.05,
+              ease: [0.16, 1, 0.3, 1],
+            }}
             viewport={{ once: true }}
           >
             <Skill skill={skill} />

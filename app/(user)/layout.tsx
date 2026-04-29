@@ -7,12 +7,29 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: pageInfo?.name,
-    description: pageInfo?.backgroundInformation,
+    description:
+      pageInfo?.backgroundInformation?.slice(0, 160) ??
+      "Full Stack Developer specializing in React, Next.js, and modern web technologies.",
     icons: {
       icon: "/favicon.ico",
     },
     alternates: {
       canonical: pageInfo?.canonicalUrl,
+    },
+    openGraph: {
+      title: pageInfo?.name ?? "",
+      description:
+        pageInfo?.backgroundInformation?.slice(0, 160) ??
+        "Full Stack Developer specializing in React, Next.js, and modern web technologies.",
+      url: pageInfo?.canonicalUrl ?? "",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: pageInfo?.name ?? "",
+      description:
+        pageInfo?.backgroundInformation?.slice(0, 160) ??
+        "Full Stack Developer specializing in React, Next.js, and modern web technologies.",
     },
   };
 }

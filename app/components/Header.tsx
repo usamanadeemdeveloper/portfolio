@@ -15,6 +15,7 @@ function Header({ socials }: HeaderProps) {
         initial={{ x: -500, opacity: 0, scale: 0.5 }}
         animate={{ x: 0, opacity: 1, scale: 1 }}
         transition={{ duration: 1.5 }}
+        style={{ willChange: "transform" }}
         className="flex flex-row items-center"
       >
         {socials.map((social) => (
@@ -31,16 +32,16 @@ function Header({ socials }: HeaderProps) {
       <motion.div
         initial={{ x: 500, opacity: 0, scale: 0.5 }}
         animate={{ x: 0, opacity: 1, scale: 1 }}
+        style={{ willChange: "transform" }}
         transition={{ duration: 1.5 }}
-        className="flex flex-row items-center cursor-pointer"
+        className="flex flex-row items-center"
       >
         <Link
           href="/#contact"
-          className="cursor-pointer"
+          className="flex items-center cursor-pointer"
           aria-label="Get in touch via email"
         >
           <SocialIcon
-            className="cursor-pointer"
             network="email"
             bgColor="transparent"
             fgColor="var(--color-secondary)"

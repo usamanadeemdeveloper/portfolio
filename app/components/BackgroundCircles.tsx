@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 
-function BackgroudCircles() {
+function BackgroundCircles() {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -25,4 +25,4 @@ function BackgroudCircles() {
   );
 }
 
-export default BackgroudCircles;
+export default BackgroundCircles;

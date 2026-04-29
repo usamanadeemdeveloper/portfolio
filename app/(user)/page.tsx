@@ -9,7 +9,6 @@ import WorkExperience from "../components/WorkExperience";
 import { fetchSanityData } from "@/sanity/lib/fetchSanityData";
 import { ArrowUpIcon } from "@sanity/icons";
 
-export const dynamic = "force-static";
 export const revalidate = 3600;
 
 export default async function Home() {

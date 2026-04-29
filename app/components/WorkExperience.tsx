@@ -1,8 +1,8 @@
 "use client";
 
+import { EXPERIENCE_QUERYResult } from "@/sanity.types";
 import { motion } from "framer-motion";
 import ExperienceCard from "./ExperienceCard";
-import { EXPERIENCE_QUERYResult } from "@/sanity.types";
 
 type Props = {
   experiences: EXPERIENCE_QUERYResult;
@@ -11,7 +11,10 @@ type Props = {
 function WorkExperience({ experiences }: Props) {
   // Sort experiences by date (descending)
   const sortedExperiences = [...experiences].sort((a, b) => {
-    return new Date(b.dateStarted ?? "").getTime() - new Date(a.dateStarted ?? "").getTime();
+    return (
+      new Date(b.dateStarted ?? "").getTime() -
+      new Date(a.dateStarted ?? "").getTime()
+    );
   });
 
   return (
@@ -29,16 +32,16 @@ function WorkExperience({ experiences }: Props) {
 
       <div className="relative z-10 flex flex-col items-center justify-center w-full">
         <div className="mb-24 text-center w-full px-4">
-          <motion.h3 
+          <motion.p
             initial={{ y: 20, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="uppercase tracking-[0.5em] text-white/30 text-[10px] md:text-xs font-bold mb-3"
+            className="uppercase tracking-[0.5em] text-white/50 text-[10px] md:text-xs font-bold mb-3"
           >
             Journey
-          </motion.h3>
-          <motion.h2 
+          </motion.p>
+          <motion.h2
             initial={{ y: 20, opacity: 0 }}
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.1 }}
@@ -50,12 +53,16 @@ function WorkExperience({ experiences }: Props) {
         </div>
 
         <div className="w-full space-y-16 flex flex-col items-center">
-          {sortedExperiences?.map((experience, index) => (
+          {sortedExperiences.map((experience, index) => (
             <motion.div
               key={experience._id}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              transition={{
+                duration: 1,
+                delay: index * 0.1,
+                ease: [0.16, 1, 0.3, 1],
+              }}
               viewport={{ once: true }}
               className="w-full flex justify-center"
             >

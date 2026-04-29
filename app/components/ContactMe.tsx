@@ -1,9 +1,9 @@
 "use client";
 
-import { EnvelopeIcon, MapPinIcon, PhoneIcon } from "@heroicons/react/16/solid";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { motion } from "framer-motion";
 import { GetPageInfoResult } from "@/sanity.types";
+import { EnvelopeIcon, MapPinIcon, PhoneIcon } from "@heroicons/react/16/solid";
+import { motion } from "framer-motion";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 type Inputs = {
   name: string;
@@ -19,7 +19,7 @@ type ContactMeProps = {
 function ContactMe({ pageInfo }: ContactMeProps) {
   const { register, handleSubmit } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (formData) => {
-    window.location.href = `mailto:${pageInfo?.email}?subject=${formData.subject}&body=Hi, my name is ${formData.name}. ${formData.message} (${formData.email})`;
+    window.location.href = `mailto:${pageInfo?.email}?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent(`Hi, my name is ${formData.name}. ${formData.message} (${formData.email})`)}`;
   };
 
   return (
@@ -33,14 +33,14 @@ function ContactMe({ pageInfo }: ContactMeProps) {
       <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center">
         {/* Header Section */}
         <div className="text-center mb-16 md:mb-20">
-          <motion.h3
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="uppercase tracking-[0.4em] md:tracking-[0.6em] text-white/20 text-[10px] md:text-xs font-bold mb-4"
+            className="uppercase tracking-[0.4em] md:tracking-[0.6em] text-white/50 text-[10px] md:text-xs font-bold mb-4"
           >
             Availability: {pageInfo?.availability}
-          </motion.h3>
+          </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -57,9 +57,9 @@ function ContactMe({ pageInfo }: ContactMeProps) {
           {/* Contact Details Nodes */}
           <div className="lg:col-span-2 space-y-6 md:space-y-8">
             <div className="space-y-4 md:space-y-6">
-              <h4 className="text-white/80 text-lg md:text-xl font-bold px-2">
+              <h3 className="text-white/80 text-lg md:text-xl font-bold px-2">
                 Direct Access
-              </h4>
+              </h3>
               {[
                 {
                   icon: PhoneIcon,
@@ -137,7 +137,11 @@ function ContactMe({ pageInfo }: ContactMeProps) {
               className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8 relative z-10"
             >
               <div className="space-y-2">
+                <label htmlFor="name" className="sr-only">
+                  Full Name
+                </label>
                 <input
+                  id="name"
                   className="w-full outline-none bg-white/[0.03] rounded-xl md:rounded-2xl border border-white/5 px-6 py-4 md:py-5 text-white placeholder-white/20 transition-all duration-300 focus:border-blue-500/50 focus:bg-white/[0.05] text-sm font-medium"
                   {...register("name")}
                   placeholder="Full Name"
@@ -145,7 +149,11 @@ function ContactMe({ pageInfo }: ContactMeProps) {
                 />
               </div>
               <div className="space-y-2">
+                <label htmlFor="email" className="sr-only">
+                  Email Address
+                </label>
                 <input
+                  id="email"
                   className="w-full outline-none bg-white/[0.03] rounded-xl md:rounded-2xl border border-white/5 px-6 py-4 md:py-5 text-white placeholder-white/20 transition-all duration-300 focus:border-blue-500/50 focus:bg-white/[0.05] text-sm font-medium"
                   {...register("email")}
                   placeholder="Email Address"
@@ -153,7 +161,11 @@ function ContactMe({ pageInfo }: ContactMeProps) {
                 />
               </div>
               <div className="md:col-span-2 space-y-2">
+                <label htmlFor="subject" className="sr-only">
+                  Inquiry Subject
+                </label>
                 <input
+                  id="subject"
                   className="w-full outline-none bg-white/[0.03] rounded-xl md:rounded-2xl border border-white/5 px-6 py-4 md:py-5 text-white placeholder-white/20 transition-all duration-300 focus:border-blue-500/50 focus:bg-white/[0.05] text-sm font-medium"
                   {...register("subject")}
                   placeholder="Inquiry Subject"
@@ -161,7 +173,11 @@ function ContactMe({ pageInfo }: ContactMeProps) {
                 />
               </div>
               <div className="md:col-span-2 space-y-2">
+                <label htmlFor="message" className="sr-only">
+                  Message
+                </label>
                 <textarea
+                  id="message"
                   className="w-full outline-none bg-white/[0.03] rounded-xl md:rounded-2xl border border-white/5 px-6 py-4 md:py-5 text-white placeholder-white/20 transition-all duration-300 focus:border-blue-500/50 focus:bg-white/[0.05] resize-none text-sm font-medium"
                   {...register("message")}
                   placeholder="Briefly describe your project or inquiry..."
@@ -181,7 +197,7 @@ function ContactMe({ pageInfo }: ContactMeProps) {
                 </span>
               </motion.button>
 
-              <p className="md:col-span-2 text-center text-[10px] text-white/20 font-bold uppercase tracking-widest pt-2">
+              <p className="md:col-span-2 text-center text-[10px] text-white/40 font-bold uppercase tracking-widest pt-2">
                 {pageInfo?.responseTime}
               </p>
             </form>

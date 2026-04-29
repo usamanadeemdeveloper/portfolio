@@ -32,6 +32,7 @@ function Hero({ pageInfo }: HeroProps) {
           src={urlFor(pageInfo.heroImage).url()}
           alt={`Profile image of ${pageInfo?.name}`}
           fetchPriority="high"
+          sizes="128px"
           height={128}
           width={128}
           priority
@@ -51,17 +52,18 @@ function Hero({ pageInfo }: HeroProps) {
         </h2>
 
         <div className="pt-5 space-x-3">
-          <Link href="/#about" aria-label="Go to About section">
-            <button className="heroButton">About</button>
+          {/* Link renders an <a> tag — don't nest <button> inside it */}
+          <Link href="/#about" className="heroButton">
+            About
           </Link>
-          <Link href="/#experience" aria-label="Go to Experience section">
-            <button className="heroButton">Experience</button>
+          <Link href="/#experience" className="heroButton">
+            Experience
           </Link>
-          <Link href="/#skills" aria-label="Go to Skills section">
-            <button className="heroButton">Skills</button>
+          <Link href="/#skills" className="heroButton">
+            Skills
           </Link>
-          <Link href="/#projects" aria-label="Go to Projects section">
-            <button className="heroButton">Projects</button>
+          <Link href="/#projects" className="heroButton">
+            Projects
           </Link>
         </div>
       </div>

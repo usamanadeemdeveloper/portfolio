@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
         hostname: "cdn.sanity.io",
       },
     ],
+    minimumCacheTTL: 3600,
   },
 };
 
