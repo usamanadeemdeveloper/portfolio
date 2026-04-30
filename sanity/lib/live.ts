@@ -12,6 +12,7 @@ if (!token) {
 export const { sanityFetch, SanityLive } = defineLive({
   client,
   serverToken: token,
+  browserToken: false, // Silence the warning
   fetchOptions: {
     revalidate: 3600,
   },
