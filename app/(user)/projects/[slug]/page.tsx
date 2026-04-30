@@ -32,23 +32,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: project.title,
     description: project.seoDescription || "No description available",
     alternates: {
-      canonical: `https://usamanadeem.vercel.app/projects/${slug}`,
+      canonical: `/projects/${slug}`,
     },
     openGraph: {
       title: project.title,
       description: project.seoDescription || "No description available",
       type: "article",
-      url: `https://usamanadeem.vercel.app/projects/${slug}`,
+      url: `/projects/${slug}`,
       siteName: "Usama Nadeem Portfolio",
       images: project.images?.[0]
-        ? [{ url: urlFor(project.images[0]).url() }]
+        ? [{ 
+            url: urlFor(project.images[0]).width(1200).height(630).url(),
+            width: 1200,
+            height: 630,
+            alt: project.title
+          }]
         : [],
     },
     twitter: {
       card: "summary_large_image",
       title: project.title,
       description: project.seoDescription || "No description available",
-      images: project.images?.[0] ? [urlFor(project.images[0]).url()] : [],
+      images: project.images?.[0] ? [urlFor(project.images[0]).width(1200).height(630).url()] : [],
     },
   };
 }

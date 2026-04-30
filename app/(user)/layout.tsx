@@ -7,14 +7,16 @@ export async function generateMetadata(): Promise<Metadata> {
   const pageInfo = await getPageInfo();
   const baseImage = pageInfo?.heroImage || pageInfo?.profilePic;
   const ogImageUrl = baseImage ? urlFor(baseImage).width(1200).height(630).url() : "";
+  const siteUrl = "https://usamanadeem.vercel.app";
 
   return {
     title: pageInfo?.name,
     description:
       pageInfo?.backgroundInformation?.slice(0, 160) ??
       "Full Stack Developer specializing in React, Next.js, and modern web technologies.",
+    metadataBase: new URL(siteUrl),
     alternates: {
-      canonical: pageInfo?.canonicalUrl,
+      canonical: "/",
     },
     icons: {
       icon: "/icon",
@@ -25,7 +27,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         pageInfo?.backgroundInformation?.slice(0, 160) ??
         "Full Stack Developer specializing in React, Next.js, and modern web technologies.",
-      url: pageInfo?.canonicalUrl ?? "",
+      url: "/",
       type: "website",
       images: ogImageUrl ? [{
         url: ogImageUrl,
