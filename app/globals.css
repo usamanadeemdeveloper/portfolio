@@ -43,3 +43,40 @@ body {
     hover:border-blue-500;
 }
 }
+/* =========================
+   TECH CHIP SHINE EFFECT
+   ========================= */
+
+.tech-pill {
+  position: relative;
+  overflow: hidden;
+}
+
+.tech-pill::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-120%) skewX(-20deg);
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.12),
+    transparent
+  );
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tech-pill:hover::before {
+  animation: shine 0.9s ease-out;
+  opacity: 1;
+}
+
+@keyframes shine {
+  from {
+    transform: translateX(-120%) skewX(-20deg);
+  }
+  to {
+    transform: translateX(120%) skewX(-20deg);
+  }
+}

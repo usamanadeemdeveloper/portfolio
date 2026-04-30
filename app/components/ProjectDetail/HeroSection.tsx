@@ -66,7 +66,7 @@ export default function HeroSection({ project }: Props) {
                   scale: 1.05,
                 }}
                 whileTap={{ scale: 0.97 }}
-                className="bg-white/[0.03] border border-white/10 px-4 py-2 rounded-full flex items-center gap-3 cursor-pointer backdrop-blur-md transition-all"
+                className="tech-pill bg-white/[0.03] border border-white/10 px-4 py-2 rounded-full flex items-center gap-3 cursor-pointer backdrop-blur-md transition-all"
               >
                 {tech?.image && (
                   <motion.div
