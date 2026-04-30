@@ -39,6 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: project.seoDescription || "No description available",
       type: "article",
       url: `https://usamanadeem.vercel.app/projects/${slug}`,
+      siteName: "Usama Nadeem Portfolio",
       images: project.images?.[0]
         ? [{ url: urlFor(project.images[0]).url() }]
         : [],

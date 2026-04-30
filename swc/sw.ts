@@ -5,9 +5,8 @@ const URLS_TO_CACHE = [
   "/",
   "/offline.html",
   "/manifest.webmanifest",
-  "/android-chrome-192x192.png",
-  "/android-chrome-512x512.png",
-  "/apple-touch-icon.png",
+  "/icon",
+  "/apple-icon",
 ];
 
 const EXCLUDED_HOSTS = [
