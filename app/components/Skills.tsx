@@ -47,11 +47,14 @@ function Skills({ skills }: SkillsProps) {
         {skills.map((skill, index) => (
           <motion.div
             key={skill._id}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{
+              opacity: 0,
+              x: index % 2 === 0 ? -40 : 40,
+            }}
+            whileInView={{ opacity: 1, x: 0 }}
             transition={{
               duration: 0.6,
-              delay: index * 0.05,
+              delay: index * 0.04,
               ease: [0.16, 1, 0.3, 1],
             }}
             viewport={{ once: true }}

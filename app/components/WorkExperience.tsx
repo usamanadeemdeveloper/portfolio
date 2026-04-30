@@ -52,23 +52,34 @@ function WorkExperience({ experiences }: Props) {
           </motion.h2>
         </div>
 
-        <div className="w-full space-y-16 flex flex-col items-center">
-          {sortedExperiences.map((experience, index) => (
-            <motion.div
-              key={experience._id}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 1,
-                delay: index * 0.1,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              viewport={{ once: true }}
-              className="w-full flex justify-center"
-            >
-              <ExperienceCard experience={experience} />
-            </motion.div>
-          ))}
+        <div className="relative w-full flex flex-col items-center">
+          {/* Timeline line that draws down */}
+          <motion.div
+            className="absolute left-1/2 -translate-x-1/2 top-0 w-px bg-gradient-to-b from-blue-500/40 via-blue-500/10 to-transparent origin-top hidden lg:block"
+            initial={{ scaleY: 0, height: "100%" }}
+            whileInView={{ scaleY: 1, height: "100%" }}
+            viewport={{ once: true }}
+            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+          />
+
+          <div className="w-full space-y-16 flex flex-col items-center">
+            {sortedExperiences.map((experience, index) => (
+              <motion.div
+                key={experience._id}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 1,
+                  delay: index * 0.15,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                viewport={{ once: true }}
+                className="w-full flex justify-center"
+              >
+                <ExperienceCard experience={experience} />
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </motion.section>

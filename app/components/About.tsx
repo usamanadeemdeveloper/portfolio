@@ -1,14 +1,49 @@
 "use client";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { GetPageInfoResult } from "@/sanity.types";
 import { urlFor } from "@/sanity/lib/image";
+import { useEffect, useRef, useState } from "react";
 
 type AboutProps = {
   pageInfo: GetPageInfoResult;
 };
 
+function useCounter(target: number, duration: number = 2) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLParagraphElement>(null);
+  const inView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (!inView || isNaN(target) || target === 0) return;
+    let start = 0;
+    const increment = target / (duration * 60);
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= target) {
+        setCount(target);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(start));
+      }
+    }, 1000 / 60);
+    return () => clearInterval(timer);
+  }, [inView, target, duration]);
+
+  return { count, ref };
+}
+
 function About({ pageInfo }: AboutProps) {
+  const expRaw = pageInfo?.experienceYears ?? "";
+  const contRaw = pageInfo?.contributionTitle ?? "";
+  const expNum = parseInt(expRaw);
+  const contNum = parseInt(contRaw);
+  const expSuffix = expRaw.replace(/[0-9]/g, "");
+  const contSuffix = contRaw.replace(/[0-9]/g, "");
+
+  const { count: expCount, ref: expRef } = useCounter(expNum);
+  const { count: contCount, ref: contRef } = useCounter(contNum, 2.5);
+
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -55,6 +90,21 @@ function About({ pageInfo }: AboutProps) {
           >
             {/* Multi-layered premium border/shadow */}
             <div className="absolute inset-0 bg-blue-500/10 rounded-[2.5rem] blur-3xl opacity-40 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-1000" />
+
+            {/* Image reveal mask */}
+            <motion.div
+              className="absolute inset-0 rounded-[2.5rem] z-20 origin-top"
+              style={{ backgroundColor: "rgb(10, 20, 40)" }}
+              initial={{ scaleY: 1 }}
+              whileInView={{ scaleY: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.9,
+                delay: 0.3,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+            />
+
             <div className="relative h-full w-full bg-white/[0.03] backdrop-blur-2xl border border-white/10 rounded-[2.5rem] p-3 shadow-2xl transition-all duration-500 md:group-hover:border-white/20">
               <Image
                 src={urlFor(pageInfo.profilePic).url()}
@@ -75,18 +125,48 @@ function About({ pageInfo }: AboutProps) {
           className="flex-1 space-y-10"
         >
           <div className="space-y-6">
+            {/* Staggered quote reveal */}
             <h3 className="text-2xl md:text-4xl font-bold text-white leading-tight">
               {pageInfo?.aboutQuote?.split("*").map((part, i) =>
                 i % 2 === 1 ? (
-                  <span key={`highlight-${part}`} className="text-blue-500/80">
+                  <motion.span
+                    key={`highlight-${part}`}
+                    className="text-blue-500/80 inline-block"
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
+                  >
                     {part}
-                  </span>
+                  </motion.span>
                 ) : (
-                  <span key={`plain-${part}`}>{part}</span>
+                  <motion.span
+                    key={`plain-${part}`}
+                    className="inline-block"
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
+                  >
+                    {part}
+                  </motion.span>
                 ),
               )}
             </h3>
-            <div className="h-1 w-20 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full" />
+
+            {/* Accent line draw */}
+            <motion.div
+              className="h-1 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full origin-left"
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.8,
+                delay: 0.5,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              style={{ width: "5rem" }}
+            />
           </div>
 
           <p className="text-white/50 text-base md:text-lg leading-relaxed text-left lg:text-justify max-w-2xl font-medium">
@@ -96,21 +176,36 @@ function About({ pageInfo }: AboutProps) {
           <div className="grid grid-cols-2 gap-8 pt-6">
             <motion.div
               whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
               className="bg-white/[0.03] backdrop-blur-xl border border-white/5 p-6 rounded-3xl group/stat md:hover:border-blue-500/30 transition-colors"
             >
-              <p className="text-blue-500 font-bold text-3xl md:text-4xl mb-1 md:group-hover/stat:scale-110 transition-transform origin-left">
-                {pageInfo?.experienceYears}
+              <p
+                ref={expRef}
+                className="text-blue-500 font-bold text-3xl md:text-4xl mb-1 md:group-hover/stat:scale-110 transition-transform origin-left"
+              >
+                {isNaN(expNum) ? expRaw : `${expCount}${expSuffix}`}
               </p>
               <p className="text-white/50 text-[10px] uppercase tracking-widest font-bold">
                 {pageInfo?.experienceLabel}
               </p>
             </motion.div>
+
             <motion.div
               whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
               className="bg-white/[0.03] backdrop-blur-xl border border-white/5 p-6 rounded-3xl group/stat md:hover:border-blue-500/30 transition-colors"
             >
-              <p className="text-blue-500 font-bold text-3xl md:text-4xl mb-1 md:group-hover/stat:scale-110 transition-transform origin-left">
-                {pageInfo?.contributionTitle}
+              <p
+                ref={contRef}
+                className="text-blue-500 font-bold text-3xl md:text-4xl mb-1 md:group-hover/stat:scale-110 transition-transform origin-left"
+              >
+                {isNaN(contNum) ? contRaw : `${contCount}${contSuffix}`}
               </p>
               <p className="text-white/50 text-[10px] uppercase tracking-widest font-bold">
                 {pageInfo?.contributionLabel}

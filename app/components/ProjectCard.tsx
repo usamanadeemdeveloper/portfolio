@@ -99,31 +99,74 @@ function ProjectCard({ project, index, cardsPerView }: ProjectCardProps) {
             </p>
 
             {/* TECH */}
-            <div className="flex flex-wrap gap-2 mb-8 sm:mb-10">
+            {/* TECH */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.4 }}
+              variants={{
+                hidden: {},
+                visible: {
+                  transition: {
+                    staggerChildren: 0.12,
+                  },
+                },
+              }}
+              className="flex flex-wrap gap-2 mb-8 sm:mb-10"
+            >
               {project.technologies
                 ?.filter(Boolean)
                 .slice(0, 4)
                 .map((tech) => (
-                  <div
+                  <motion.div
                     key={tech._id}
-                    className="bg-white/[0.03] backdrop-blur-md border border-white/5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full flex items-center gap-2"
+                    variants={{
+                      hidden: {
+                        opacity: 0,
+                        y: 20,
+                        scale: 0.9,
+                      },
+                      visible: {
+                        opacity: 1,
+                        y: 0,
+                        scale: 1,
+                      },
+                    }}
+                    transition={{
+                      duration: 0.5,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    whileHover={{
+                      y: -4,
+                      scale: 1.04,
+                      borderColor: "rgba(255,255,255,0.15)",
+                      backgroundColor: "rgba(255,255,255,0.06)",
+                    }}
+                    whileTap={{ scale: 0.97 }}
+                    className="bg-white/[0.03] backdrop-blur-md border border-white/5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full flex items-center gap-2 cursor-pointer transition-all duration-300"
                   >
                     {tech.image && (
-                      <div className="relative w-3 h-3 sm:w-3.5 sm:h-3.5">
+                      <motion.div
+                        initial={{ opacity: 0, rotate: -10, scale: 0.8 }}
+                        whileInView={{ opacity: 1, rotate: 0, scale: 1 }}
+                        transition={{ duration: 0.4, delay: 0.1 }}
+                        className="relative w-3 h-3 sm:w-3.5 sm:h-3.5"
+                      >
                         <Image
                           src={urlFor(tech.image).url()}
                           alt={tech.title || ""}
                           fill
                           className="object-contain opacity-60"
                         />
-                      </div>
+                      </motion.div>
                     )}
+
                     <span className="text-[9px] sm:text-[10px] text-white/40 font-bold uppercase tracking-widest">
                       {tech.title}
                     </span>
-                  </div>
+                  </motion.div>
                 ))}
-            </div>
+            </motion.div>
 
             {/* ACTIONS */}
             <div className="mt-auto flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 sm:gap-6">

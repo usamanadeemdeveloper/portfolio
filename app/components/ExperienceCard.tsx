@@ -28,14 +28,19 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
         <div className="p-6 sm:p-10 pb-6">
           <div className="flex flex-col sm:flex-row items-start gap-5 sm:gap-8">
             {experience.companyImage && (
-              <div className="relative flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white/[0.05] border border-white/10 p-2 sm:p-3 shadow-inner">
+              // Company logo with pulse on hover
+              <motion.div
+                className="relative flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white/[0.05] border border-white/10 p-2 sm:p-3 shadow-inner"
+                whileHover={{ scale: 1.08 }}
+                transition={{ duration: 0.3 }}
+              >
                 <Image
                   src={urlFor(experience.companyImage).url()}
                   alt={experience.companyName || "Company logo"}
                   fill
                   className="object-contain p-2 grayscale-0 md:grayscale md:group-hover:grayscale-0 transition-all duration-700"
                 />
-              </div>
+              </motion.div>
             )}
 
             <div className="flex-1 min-w-0">
@@ -64,14 +69,18 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
 
         {/* 2. Tech Stack */}
         <div className="px-6 sm:px-10 pb-6 flex flex-wrap gap-2 sm:gap-3">
-          {experience.technologies?.map((tech) => (
+          {experience.technologies?.map((tech, i) => (
             <motion.div
               key={tech._id}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.3, delay: i * 0.05 }}
+              whileHover={{ scale: 1.08, borderColor: "rgba(59,130,246,0.4)" }}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center gap-2 bg-white/[0.04] border border-white/10 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full"
+              className="flex items-center gap-2 bg-white/[0.04] border border-white/10 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full cursor-pointer"
             >
               {tech.image && (
-                // Fixed: was "w-3.5 h-3.5 sm:w-4 h-4" (duplicate h-4)
                 <div className="relative w-3.5 h-3.5 sm:w-4 sm:h-4">
                   <Image
                     src={urlFor(tech.image).url()}
@@ -100,17 +109,18 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
             >
               <div className="px-6 sm:px-10 py-10 relative">
                 <div className="absolute left-6 sm:left-10 top-12 bottom-12 w-px bg-gradient-to-b from-blue-500/50 via-white/10 to-transparent" />
-
                 <ul className="space-y-8">
                   {experience.points?.map((point, i) => (
-                    // Fixed: content-based key instead of index
-                    <li
+                    <motion.li
                       key={`${point}-${i}`}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.4, delay: i * 0.08 }}
                       className="flex gap-6 text-sm sm:text-base text-white/50 leading-relaxed font-medium pl-6 relative"
                     >
                       <div className="absolute -left-[19.5px] sm:-left-[23.5px] mt-2 w-2.5 h-2.5 rounded-full bg-[#020617] border-2 border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.6)] z-10" />
                       {point}
-                    </li>
+                    </motion.li>
                   ))}
                 </ul>
               </div>
@@ -120,19 +130,24 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
 
         {/* 4. Toggle Button */}
         <motion.button
+          whileHover={{ backgroundColor: "rgba(255,255,255,0.05)" }}
           whileTap={{ scale: 0.98 }}
           onClick={() => setIsExpanded(!isExpanded)}
-          className="w-full py-6 flex items-center justify-center gap-3 bg-white/[0.02] md:hover:bg-white/[0.05] transition-all duration-300 border-t border-white/5 group/btn"
+          className="w-full py-6 flex items-center justify-center gap-3 bg-white/[0.02] transition-all duration-300 border-t border-white/5 group/btn"
         >
           <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 group-hover/btn:text-white transition-colors">
             {isExpanded ? "Collapse Details" : "Explore Journey"}
           </span>
-          {/* Replaced @sanity/icons with inline SVGs */}
-          {isExpanded ? (
-            <ChevronUpIcon className="w-4 h-4 text-blue-500" />
-          ) : (
-            <ChevronDownIcon className="w-4 h-4 text-blue-500" />
-          )}
+          <motion.span
+            animate={{ rotate: isExpanded ? 180 : 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {isExpanded ? (
+              <ChevronUpIcon className="w-4 h-4 text-blue-500" />
+            ) : (
+              <ChevronDownIcon className="w-4 h-4 text-blue-500" />
+            )}
+          </motion.span>
         </motion.button>
       </div>
     </motion.article>

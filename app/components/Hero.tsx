@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { Cursor, useTypewriter } from "react-simple-typewriter";
+import { motion } from "framer-motion";
 
 const BackgroundCircles = dynamic(() => import("./BackgroundCircles"), {
   ssr: false,
@@ -14,6 +15,8 @@ const BackgroundCircles = dynamic(() => import("./BackgroundCircles"), {
 type HeroProps = {
   pageInfo: GetPageInfoResult;
 };
+
+const sections = ["about", "experience", "skills", "projects"] as const;
 
 function Hero({ pageInfo }: HeroProps) {
   const [text] = useTypewriter({
@@ -52,18 +55,24 @@ function Hero({ pageInfo }: HeroProps) {
         </h2>
 
         <div className="pt-5 flex flex-wrap justify-center gap-2 sm:gap-3">
-          <Link href="/#about" className="heroButton">
-            About
-          </Link>
-          <Link href="/#experience" className="heroButton">
-            Experience
-          </Link>
-          <Link href="/#skills" className="heroButton">
-            Skills
-          </Link>
-          <Link href="/#projects" className="heroButton">
-            Projects
-          </Link>
+          {sections.map((section, i) => (
+            <motion.div
+              key={section}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: 0.3 + i * 0.1,
+                duration: 0.4,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              whileHover={{ y: -3, scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Link href={`#${section}`} className="heroButton capitalize">
+                {section}
+              </Link>
+            </motion.div>
+          ))}
         </div>
       </div>
     </div>
