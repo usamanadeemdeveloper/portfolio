@@ -10,9 +10,6 @@ export async function generateMetadata(): Promise<Metadata> {
     description:
       pageInfo?.backgroundInformation?.slice(0, 160) ??
       "Full Stack Developer specializing in React, Next.js, and modern web technologies.",
-    icons: {
-      icon: "/favicon.ico",
-    },
     alternates: {
       canonical: pageInfo?.canonicalUrl,
     },

@@ -1,5 +1,5 @@
 import getPageInfo from "@/sanity/lib/getPageInfo";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import RegisterSW from "./register-sw";
@@ -14,36 +14,53 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  themeColor: "#0f172a",
+  width: "device-width",
+  initialScale: 1,
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   const pageInfo = await getPageInfo();
 
   return {
-    title: pageInfo?.name,
+    title: {
+      template: `%s | ${pageInfo?.name || "Portfolio"}`,
+      default: pageInfo?.name || "Portfolio",
+    },
     description:
       pageInfo?.backgroundInformation?.slice(0, 160) ??
       "Full Stack Developer specializing in React, Next.js, and modern web technologies.",
-    manifest: "/manifest.json",
-    icons: {
-      icon: "/favicon.ico",
-    },
+    manifest: "/manifest.webmanifest",
     alternates: {
       canonical: pageInfo?.canonicalUrl,
     },
     openGraph: {
-      title: pageInfo?.name ?? "",
+      title: pageInfo?.name || "Portfolio",
       description:
         pageInfo?.backgroundInformation?.slice(0, 160) ??
         "Full Stack Developer specializing in React, Next.js, and modern web technologies.",
       url: pageInfo?.canonicalUrl ?? "",
       type: "website",
+      siteName: pageInfo?.name,
     },
     twitter: {
       card: "summary_large_image",
-      title: pageInfo?.name ?? "",
+      title: pageInfo?.name || "Portfolio",
       description:
         pageInfo?.backgroundInformation?.slice(0, 160) ??
         "Full Stack Developer specializing in React, Next.js, and modern web technologies.",
     },
+    // Modern way to handle preconnects in Next.js Metadata
+    other: {
+      "preconnect": [
+        "https://media.licdn.com",
+        "https://cdn.jsdelivr.net",
+        "https://avatars.githubusercontent.com",
+        "https://raw.githubusercontent.com",
+        "https://picsum.photos"
+      ]
+    }
   };
 }
 

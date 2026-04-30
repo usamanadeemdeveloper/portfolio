@@ -1,11 +1,10 @@
 /// <reference lib="webworker" />
 
-const CACHE_NAME = "v3";
+const CACHE_NAME = "v4"; // Bumped version
 const URLS_TO_CACHE = [
   "/",
   "/offline.html",
-  "/favicon.ico",
-  "/manifest.json",
+  "/manifest.webmanifest",
   "/android-chrome-192x192.png",
   "/android-chrome-512x512.png",
   "/apple-touch-icon.png",
