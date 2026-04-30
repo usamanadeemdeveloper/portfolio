@@ -133,7 +133,7 @@ function ExperienceCard({ experience }: ExperienceCardProps) {
           whileHover={{ backgroundColor: "rgba(255,255,255,0.05)" }}
           whileTap={{ scale: 0.98 }}
           onClick={() => setIsExpanded(!isExpanded)}
-          className="w-full py-6 flex items-center justify-center gap-3 bg-white/[0.02] transition-all duration-300 border-t border-white/5 group/btn"
+          className="w-full py-6 flex items-center justify-center gap-3 bg-white/[0.02] transition-all duration-300 border-t border-white/5 group/btn pointer-cursor"
         >
           <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 group-hover/btn:text-white transition-colors">
             {isExpanded ? "Collapse Details" : "Explore Journey"}
