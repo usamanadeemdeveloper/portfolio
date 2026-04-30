@@ -1,6 +1,7 @@
 import getPageInfo from "@/sanity/lib/getPageInfo";
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { urlFor } from "@/sanity/lib/image";
 import "./globals.css";
 import RegisterSW from "./register-sw";
 
@@ -22,6 +23,8 @@ export const viewport: Viewport = {
 
 export async function generateMetadata(): Promise<Metadata> {
   const pageInfo = await getPageInfo();
+  const baseImage = pageInfo?.heroImage || pageInfo?.profilePic;
+  const ogImageUrl = baseImage ? urlFor(baseImage).width(1200).height(630).url() : "";
 
   return {
     title: {
@@ -35,6 +38,10 @@ export async function generateMetadata(): Promise<Metadata> {
     alternates: {
       canonical: pageInfo?.canonicalUrl,
     },
+    icons: {
+      icon: "/icon",
+      apple: "/apple-icon",
+    },
     openGraph: {
       title: pageInfo?.name || "Portfolio",
       description:
@@ -43,6 +50,12 @@ export async function generateMetadata(): Promise<Metadata> {
       url: pageInfo?.canonicalUrl ?? "",
       type: "website",
       siteName: pageInfo?.name,
+      images: ogImageUrl ? [{
+        url: ogImageUrl,
+        width: 1200,
+        height: 630,
+        alt: pageInfo?.name || "Portfolio",
+      }] : [],
     },
     twitter: {
       card: "summary_large_image",
@@ -50,6 +63,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description:
         pageInfo?.backgroundInformation?.slice(0, 160) ??
         "Full Stack Developer specializing in React, Next.js, and modern web technologies.",
+      images: ogImageUrl ? [ogImageUrl] : [],
     },
     // Modern way to handle preconnects in Next.js Metadata
     other: {
