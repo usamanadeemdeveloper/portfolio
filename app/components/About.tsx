@@ -126,12 +126,12 @@ function About({ pageInfo }: AboutProps) {
         >
           <div className="space-y-6">
             {/* Staggered quote reveal */}
-            <h3 className="text-2xl md:text-4xl font-bold text-white leading-tight">
+            <h3 className="text-2xl md:text-4xl font-bold text-white leading-relaxed flex flex-wrap gap-x-1 gap-y-1">
               {pageInfo?.aboutQuote?.split("*").map((part, i) =>
                 i % 2 === 1 ? (
                   <motion.span
                     key={`highlight-${part}`}
-                    className="text-blue-500/80 inline-block"
+                    className="text-blue-500/80 inline-block px-1"
                     initial={{ opacity: 0, y: 10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}

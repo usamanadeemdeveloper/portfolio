@@ -54,7 +54,7 @@ function Hero({ pageInfo }: HeroProps) {
           </span>
         </h2>
 
-        <div className="pt-5 flex flex-wrap justify-center gap-2 sm:gap-3">
+        <div className="pt-8 sm:pt-10 flex flex-wrap justify-center gap-3 sm:gap-4">
           {sections.map((section, i) => (
             <motion.div
               key={section}
