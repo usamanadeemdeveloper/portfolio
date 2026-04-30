@@ -3,7 +3,7 @@ import { sanityFetch } from "./live";
 
 async function getSkills() {
   const getSkills = defineQuery(`*[_type == "skill"]`);
-  const result = await sanityFetch({ query: getSkills });
+  const result = await sanityFetch({ query: getSkills, tags: ["skill"] });
 
   return result.data;
 }

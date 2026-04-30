@@ -18,7 +18,7 @@ const PROJECTS_QUERY = defineQuery(`
 `);
 
 async function getProjects() {
-  const result = await sanityFetch({ query: PROJECTS_QUERY });
+  const result = await sanityFetch({ query: PROJECTS_QUERY, tags: ["projects"] });
   return result.data;
 }
 

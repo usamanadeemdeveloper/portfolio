@@ -3,7 +3,7 @@ import { sanityFetch } from "./live";
 
 async function getPageInfo() {
   const getPageInfo = defineQuery(`*[_type == "pageInfo"][0]`);
-  const course = await sanityFetch({ query: getPageInfo });
+  const course = await sanityFetch({ query: getPageInfo, tags: ["pageInfo"] });
 
   return course.data;
 }

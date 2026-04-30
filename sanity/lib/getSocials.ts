@@ -3,7 +3,7 @@ import { sanityFetch } from "./live";
 
 async function getSocials() {
   const getSocials = defineQuery(`*[_type == "social"]`);
-  const result = await sanityFetch({ query: getSocials });
+  const result = await sanityFetch({ query: getSocials, tags: ["social"] });
 
   return result.data;
 }

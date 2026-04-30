@@ -25,7 +25,7 @@ const EXPERIENCE_QUERY = defineQuery(`
 `);
 
 async function getExperience() {
-  const result = await sanityFetch({ query: EXPERIENCE_QUERY });
+  const result = await sanityFetch({ query: EXPERIENCE_QUERY, tags: ["experience"] });
   return result.data;
 }
 
