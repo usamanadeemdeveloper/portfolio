@@ -70,7 +70,7 @@ export default async function ProjectPage({ params }: Props) {
   }
 
   return (
-    <main className="bg-background text-foreground min-h-screen overflow-y-scroll overflow-x-hidden scroll-smooth scrollbar-thin scrollbar-track-slate-900/20 scrollbar-thumb-blue-500/20 hover:scrollbar-thumb-blue-500/40">
+    <main className="bg-background text-foreground min-h-screen overflow-x-hidden scroll-smooth">
       <StructuredData project={project} slug={slug} />
 
       <Header socials={socials} />

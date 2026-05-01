@@ -14,7 +14,7 @@ export default async function Home() {
     await fetchSanityData();
 
   return (
-    <div className="bg-background text-foreground min-h-screen snap-y snap-mandatory overflow-y-scroll overflow-x-hidden z-0 scroll-smooth scrollbar-thin scrollbar-track-slate-900/20 scrollbar-thumb-blue-500/20 hover:scrollbar-thumb-blue-500/40">
+    <div className="bg-background text-foreground min-h-screen overflow-x-hidden z-0 scroll-smooth">
       <Header socials={socials} />
 
       <section id="hero" className="snap-start h-screen">
