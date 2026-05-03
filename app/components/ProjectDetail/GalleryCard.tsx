@@ -110,7 +110,7 @@ export default function GalleryCard({ project }: Props) {
           >
             {/* Close Button */}
             <button
-              className="absolute top-6 right-6 p-3 rounded-full bg-white/5 border border-white/10 text-white/50 hover:text-white hover:bg-white/10 transition-all z-[110]"
+              className="absolute top-6 right-6 p-3 rounded-full bg-white/5 border border-white/10 text-white/50 hover:text-white hover:bg-white/10 transition-all z-[110] cursor-pointer"
               onClick={(e) => {
                 e.stopPropagation();
                 setActiveImageIndex(null);
