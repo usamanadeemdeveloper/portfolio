@@ -139,61 +139,70 @@ function Projects({ projects }: ProjectsProps) {
       {/* Pagination dots + progress */}
       <div className="flex flex-col items-center gap-4 mt-12 z-20">
         <div className="flex justify-center gap-3">
-          {projects.map((project, i) => (
-            <button
-              key={project._id}
-              onClick={() => scrollToProject(i)}
-              aria-label={`Go to project ${i + 1}`}
-              className="relative flex items-center justify-center"
-            >
-              {i === currentIndex && (
+          {projects
+            .slice(0, Math.max(1, projects.length - cardsPerView + 1))
+            .map((project, i) => (
+              <button
+                key={project._id}
+                onClick={() => scrollToProject(i)}
+                aria-label={`Go to project ${i + 1}`}
+                className="relative flex items-center justify-center cursor-pointer"
+              >
+                {i === currentIndex && (
+                  <motion.div
+                    layoutId="activeDot"
+                    className="absolute inset-0 rounded-full bg-blue-500/30"
+                    animate={{ scale: [1, 1.8, 1], opacity: [0.6, 0, 0.6] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                )}
                 <motion.div
-                  layoutId="activeDot"
-                  className="absolute inset-0 rounded-full bg-blue-500/30"
-                  animate={{ scale: [1, 1.8, 1], opacity: [0.6, 0, 0.6] }}
-                  transition={{ duration: 2, repeat: Infinity }}
+                  animate={{
+                    width: i === currentIndex ? 40 : 8,
+                    backgroundColor:
+                      i === currentIndex
+                        ? "rgb(59,130,246)"
+                        : "rgba(255,255,255,0.1)",
+                  }}
+                  transition={{ duration: 0.4 }}
+                  className="h-1 rounded-full"
                 />
-              )}
-              <motion.div
-                animate={{
-                  width: i === currentIndex ? 40 : 8,
-                  backgroundColor:
-                    i === currentIndex
-                      ? "rgb(59,130,246)"
-                      : "rgba(255,255,255,0.1)",
-                }}
-                transition={{ duration: 0.4 }}
-                className="h-1 rounded-full"
-              />
-            </button>
-          ))}
+              </button>
+            ))}
         </div>
 
-        {/* Auto-scroll progress bar */}
-        {!isPaused && (
-          <div className="w-24 h-px bg-white/10 rounded-full overflow-hidden">
-            <motion.div
-              key={progressKey}
-              className="h-full bg-blue-500/60 origin-left"
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 6, ease: "linear" }}
-            />
-          </div>
-        )}
-
-        <AnimatePresence>
-          {isPaused && (
-            <motion.p
-              initial={{ opacity: 0, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 4 }}
-              className="text-[9px] uppercase tracking-[0.3em] text-white/20 font-bold"
-            >
-              Paused
-            </motion.p>
-          )}
-        </AnimatePresence>
+        {/* Fixed height container to prevent layout shift */}
+        <div className="h-6 flex items-center justify-center">
+          <AnimatePresence mode="wait">
+            {!isPaused ? (
+              <motion.div
+                key="progress"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="w-24 h-px bg-white/10 rounded-full overflow-hidden"
+              >
+                <motion.div
+                  key={progressKey}
+                  className="h-full bg-blue-500/60 origin-left"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 6, ease: "linear" }}
+                />
+              </motion.div>
+            ) : (
+              <motion.p
+                key="paused"
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 4 }}
+                className="text-[9px] uppercase tracking-[0.3em] text-white/20 font-bold"
+              >
+                Paused
+              </motion.p>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </motion.section>
   );
