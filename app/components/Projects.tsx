@@ -122,7 +122,7 @@ function Projects({ projects }: ProjectsProps) {
           <div
             ref={scrollRef}
             onScroll={handleScroll}
-            className="flex w-full overflow-x-scroll snap-x snap-mandatory scroll-smooth no-scrollbar py-10"
+            className="flex w-full overflow-x-scroll snap-x snap-mandatory scroll-smooth py-10 scrollbar-thin scrollbar-track-slate-900/20 scrollbar-thumb-blue-500/20 hover:scrollbar-thumb-blue-500/40"
           >
             {projects.map((project, i) => (
               <ProjectCard
